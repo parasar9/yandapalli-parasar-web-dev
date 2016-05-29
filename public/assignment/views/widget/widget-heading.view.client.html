@@ -1,0 +1,66 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-text pull-left">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget"
+               class="navbar-link">
+                <span class="glyphicon glyphicon-chevron-left nav-back-btn"></span>
+            </a>
+        </div>
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand"
+               href="">Widget Edit</a>
+        </div>
+        <div class="navbar-text pull-right">
+            <a ng-click="model.updateWidget(model.widget)"
+               class="navbar-link">
+                <span class="glyphicon glyphicon-ok black-btn"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <form>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input ng-model="model.widget.name"
+                   id="name"
+                   type="text"
+                   placeholder="Name"
+                   class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="text">Text</label>
+            <input ng-model="model.widget.text"
+                   id="text"
+                   type="text"
+                   placeholder="Text"
+                   class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="size">Size</label>
+            <select ng-model="model.widget.size"
+                    id="size" class="form-control">
+                <option value="">- Select Size -</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+        <a class="btn btn-danger btn-block"
+           ng-click="model.deleteWidget()"
+           role="button">Delete</a>
+    </form>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-text pull-right">
+            <a class="navbar-link"
+               href="#/user/{{model.userId}}">
+                <span class="glyphicon glyphicon-user text-primary"></span>
+            </a>
+        </div>
+    </div>
+</nav>

@@ -1,29 +1,41 @@
-input.form-control {
-    margin-bottom: 5px;
-}
-
 body {
     padding-top: 60px;
+    padding-bottom: 50px;
 }
-
-p.navbar-text.pull-right {
+a {
+    font-weight: bold;
+}
+a:hover{
+    text-decoration: none;
+}
+input.form-control,textarea,select {
+    margin-bottom: 5px;
+}
+.navbar-brand {
+    font-weight: bold;
+}
+.black-btn {
+    color: black;
+}
+.nav-back-btn {
+    color: black;
     margin-right: 10px;
 }
-
-p.navbar-text.pull-left {
-    margin-left: 15px;
+span.glyphicon {
+    top: 0;
 }
-
-.jga-widget-tool {
+.list-btn {
+    padding: 0;
+}
+.data-list-padding {
+    padding: 10px;
+}
+.widget-tool {
     position: absolute;
     right: 15px;
     background-color: white;
     padding-left: 5px;
-    padding-bottom: 5px;
+    padding-bottom: 2px;
     border-bottom-left-radius: 8px;
-    opacity: 0.7;
-}
-
-.nudge-down{
-    padding-top: 20px;
+    opacity: 0.8;
 }
