@@ -1,3 +1,5 @@
+/* author @ parashar */
+
 (function () {
     angular
         .module("WebAppMaker")
@@ -15,13 +17,17 @@
                     name: name,
                     description: desc
                 };
-                var result = WebsiteService.createWebsite(vm.userId, newWebsite);
-                if (result) {
-                    $location.url("/user/" + vm.userId + "/website");
-                }
-                else {
-                    vm.error = "Unable to create website."
-                }
+                WebsiteService
+                    .createWebsite(vm.userId, newWebsite)
+                    .then(function (response) {
+                        var website = response.data;
+                        if (website) {
+                            $location.url("/user/" + vm.userId + "/website");
+                        }
+                        else {
+                            vm.error = "Unable to create website."
+                        }
+                    });
             }
             else{
                 vm.error = "Website name required."

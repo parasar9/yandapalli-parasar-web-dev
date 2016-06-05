@@ -1,8 +1,9 @@
+/* author @ parashar */
 (function () {
     angular
         .module("WebAppMaker")
         .controller("ProfileController", ProfileController);
-    
+
     function ProfileController($routeParams, UserService) {
         var vm = this;
         vm.updateUser = updateUser;
@@ -10,19 +11,24 @@
         var userId = $routeParams.userId;
 
         function init() {
-            vm.user = angular.copy(UserService.findUserById(userId));
+            UserService
+                .findUserById(userId)
+                .then(function (response) {
+                    vm.user = response.data;
+                });
         }
         init();
 
         function updateUser(newUser) {
-            var result = UserService.updateUser(userId, newUser);
-            if(result){
-                vm.message = "Your profile was saved."
-            }
-            else{
-                vm.error = "Error saving profile."
-            }
+            UserService
+                .updateUser(userId, newUser)
+                .then(
+                    function (response) {
+                        vm.success = "Your profile was saved.";
+                    },
+                    function (error) {
+                        vm.error = "Error saving profile."
+                    });
         }
-
     }
 })();
