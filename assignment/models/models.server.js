@@ -7,8 +7,9 @@ module.exports = function(){
 
 
     var models = {
-      userModel : require("./user/user.model.server.js")()
-        // Add all - websiteModel PageModel WidgetModel
+      userModel : require("./user/user.model.server.js")(),
+        websiteModel: require("./website/website.model.server")()
+        // Add all - PageModel WidgetModel
 
     };
     return models;
