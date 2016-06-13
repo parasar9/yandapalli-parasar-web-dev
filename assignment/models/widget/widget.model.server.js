@@ -5,7 +5,7 @@ module.exports = function () {
     var widget = mongoose.model("Widget", widgetSchema);
 
     var api = {
-       
+        // uploadImage: uploadImage,
         createWidget: createWidget,
         findAllWidgetsForPage: findAllWidgetsForPage,
         findWidgetById: findWidgetById,

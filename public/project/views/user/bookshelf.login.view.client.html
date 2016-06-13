@@ -1,0 +1,113 @@
+<div id="wrapper">
+    <!-- start header -->
+    <header>
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button"
+                            class="navbar-toggle"
+                            data-toggle="collapse"
+                            data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#/"><img src="img/logo.jpg" alt="logo"/></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#/">Home</a></li>
+                        <!--<li><a href="#/register">Sign Up</a></li>-->
+                        <!--<li class="active"><a href="#/login">Login</a></li>-->
+                        <!--<li><a href="#/profile">Profile</a></li>-->
+                        <li><a href="#/">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- end header -->
+
+    <section id="welcome">
+        <div class="container">
+            <h1 class="page-header">
+                <a href="#/">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                Login</h1>
+            <form>
+                <div ng-show="model.error" class="alert alert-danger alert-dismissible" role="alert">
+                    <strong>{{model.error}}</strong>
+                </div>
+                <div class="form-group">
+                    <label class="label-control" for="username_sign_up">Username</label>
+                    <input ng-model="username"
+                           type="text"
+                           class="form-control"
+                           id="username_sign_up"
+                           placeholder="Input your username here.">
+                </div>
+                <div class="form-group">
+                    <label class="label-control" for="password_sign_up">Password</label>
+                    <input ng-model="password"
+                           type="password"
+                           class="form-control"
+                           id="password_sign_up"
+                           placeholder="Input your password here.">
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-primary btn-block" ng-click="model.login(username, password)">Login</a>
+                    <a class="btn btn-primary btn-block" href="#/">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="widget">
+                        <h5 class="widgetheading">Developer</h5>
+                        <strong>Weiqi Weng</strong><br>
+                        <address>
+                            College of Computer and Information Science, Northeastern University <br> Boston, MA, 02115.
+                        </address>
+                        <p>
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i> weng.wei@husky.neu.edu
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="widget">
+                        <h5 class="widgetheading">Quick Links</h5>
+                        <ul class="link-list">
+                            <li><a href="#/register">Sign Up</a></li>
+                            <li><a href="#login">Login</a></li>
+                            <!--<li><a href="#profile">Profile</a></li>-->
+                            <!--<li><a href="#/">Logout</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sub-footer">
+            <div class="container">
+                <div class="row text-center">
+                    <ul class="social-network">
+                        <li>
+                            <a href="#" data-placement="top" title="Facebook">
+                                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-placement="top" title="Linkedin">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
