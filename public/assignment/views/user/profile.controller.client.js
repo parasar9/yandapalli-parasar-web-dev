@@ -1,50 +1,53 @@
-/* author @ parashar */
-(function () {
+(function() {
     angular
         .module("WebAppMaker")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, UserService,$location) {
+    function ProfileController($location, $routeParams, UserService) {
         var vm = this;
         vm.updateUser = updateUser;
         vm.unregister = unregister;
 
-        var userId = $routeParams.userId;
+        var uid = $routeParams.uid;
 
         function init() {
             UserService
-                .findUserById(userId)
+                .findUserById(uid)
                 .then(function (response) {
-                    vm.user = response.data;
+                    vm.user = angular.copy(response.data);
                 });
+
+
+            // vm.user = angular.copy(UserService.findUserById(uid));
         }
         init();
 
         function updateUser(newUser) {
             UserService
-                .updateUser(userId, newUser)
+                .updateUser(uid, newUser)
                 .then(
-                    function (response) {
-                        vm.success = "Your profile was saved.";
+                    function () {
+                        vm.success = "User updated. ";
                     },
-                    function (error) {
-                        vm.error = "Error saving profile."
-                    });
+                    function () {
+                        vm.error = "Update failed. ";
+                    }
+                );
         }
 
         function unregister() {
             UserService
-                .deleteUser(userId)
+                .unregister(uid)
                 .then(
                     function () {
                         $location.url("/login");
                     },
                     function () {
-                        vm.error="Unable to remove user";
+                        vm.error = "Deregistration failed. ";
                     }
                 );
         }
 
-
     }
+
 })();

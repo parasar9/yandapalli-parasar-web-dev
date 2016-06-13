@@ -1,15 +1,13 @@
-/**
- * Created by parashar on 6/10/2016.
- */
-module.exports = function() {
+module.exports = function () {
     var mongoose = require("mongoose");
 
-    var WebsiteSchema = mongoose.Schema({
-        _user: {type: mongoose.Schema.ObjectId, ref: "User"},
-        name: {type: String, required: true},
+    var websiteSchema = mongoose.Schema({
+        developerId: {type: mongoose.Schema.ObjectId, ref: "User"},
+        name: String,
         description: String,
         dateCreated: {type: Date, default: Date.now}
     }, {collection: "assignment.website"});
+    
+    return websiteSchema;
 
-    return WebsiteSchema;
 };

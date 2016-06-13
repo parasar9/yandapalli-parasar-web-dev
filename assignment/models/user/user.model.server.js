@@ -1,60 +1,55 @@
-module.exports = function() {
+module.exports = function () {
 
     var mongoose = require("mongoose");
     var UserSchema = require("./user.schema.server")();
-    var User =  mongoose.model("User",UserSchema);
+    var User = mongoose.model("User", UserSchema);
 
-
-  var api = {
-      createUser : createUser,
-      findUserById : findUserById,
-      deleteUser : deleteUser,
-      updateUser: updateUser,
-      findUserByUsername: findUserByUsername,
-      findUserByCredentials : findUserByCredentials,
-      findAllUsers: findAllUsers
-
-  };
+    var api = {
+        createUser: createUser,
+        findUserById: findUserById,
+        findUserByUsername : findUserByUsername,
+        findUserByCredentials : findUserByCredentials,
+        updateUser : updateUser,
+        deleteUser : deleteUser
+    };
     return api;
 
-    function findUserById(userId){
-        return User.findById({_id : userId});
-
-    }
-    function findAllUsers() {
-        return User.find();
+    //Creates a new user instance
+    function createUser(user) {
+        return User.create(user);
     }
 
-    function findUserByCredentials(username, password) {
-        return User.findOne({username: username, password: password});
+    //Retrieves a user instance whose _id is equal to parameter userId
+    function findUserById(userId) {
+        return User.findById(userId);
     }
 
-    function updateUser(userId, user) {
-        return User
-            .update({_id: userId},{
-                $set: {
-                    firstName: user.firstName,
-                    lastName: user.lastName
-                }
-            });
-    }
-
-
-
+    //Retrieves a user instance whose username is equal to parameter username
     function findUserByUsername(username) {
         return User.findOne({username: username});
     }
 
-    function deleteUser(userId){
+    //Retrieves a user instance whose username and password
+    //are equal to parameters userId and password
+    function findUserByCredentials(username, password) {
+        return User.findOne({username: username, password: password});
+    }
+
+    //Removes user instance whose _id is equal to parameter userId
+    function deleteUser(userId) {
         return User.remove({_id: userId});
     }
 
-
-    function createUser(user)
-    {
-        console.log("user.model.server.createUser()")
-        console.log(user);
-        return User.create(user);
-
+    //Updates user instance whose _id is equal to parameter userId
+    function updateUser(userId, user) {
+        // delete user._id;
+        return User.update({_id: userId},{
+            $set: {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                phone: user.phone
+            }
+        });
     }
 };

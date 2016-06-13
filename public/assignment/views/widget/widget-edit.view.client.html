@@ -1,39 +1,191 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <div class="navbar-text pull-left">
-            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget"
-               class="navbar-link">
-                <span class="glyphicon glyphicon-chevron-left nav-back-btn"></span>
-            </a>
-        </div>
-        <div class="navbar-header pull-left">
-            <a class="navbar-brand"
-               href="">Widget Edit</a>
-        </div>
+        <a href="#/user/{{model.userId}}/website/{{model.webId}}/page/{{model.pageId}}/widget"
+           class="navbar-text pull-left">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="navbar-brand">Widget Edit</a>
+        <a ng-click="model.updateWidget(model.widget)" class="navbar-text pull-right">
+            <span class="glyphicon glyphicon-ok"></span>
+        </a>
     </div>
 </nav>
-<div class="container-fluid">
-    <div ng-switch="model.widget.widgetType">
-        <div ng-switch-when="HEADER">
-            <ng-include src="'views/widget/widget-heading.view.client.html'"/>
-        </div>
-        <div ng-switch-when="IMAGE">
-            <ng-include src="'views/widget/widget-image.view.client.html'"/>
-        </div>
-        <div ng-switch-when="YOUTUBE">
-            <ng-include src="'views/widget/widget-youtube.view.client.html'"/>
-        </div>
-        <div ng-switch-default>
-            Unable to create/edit this widget.
-        </div>
+
+<div class="container">
+    <div ng-show="model.success" class="alert alert-success alert-dismissible" role="alert">
+        <strong>{{model.success}}</strong>
     </div>
+    <div ng-show="model.error" class="alert alert-danger alert-dismissible" role="alert">
+        <strong>{{model.error}}</strong>
+    </div>
+    <form>
+
+        <div ng-switch="model.widget.widgetType">
+            <div ng-switch-when="TEXT">
+                <form>
+                    <div class="form-group">
+                        <label class="label-control" for="text_name_widedit">Name</label>
+                        <input ng-model="model.widget.name" class="form-control" id="text_name_widedit"/>
+                        <span class="help-block">Name should not be empty. </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-control" for="text_text_widedit">Text</label>
+                        <input ng-model="model.widget.text" class="form-control" id="text_text_widedit"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-control" for="text_rows_widedit">Rows</label>
+                        <input ng-model="model.widget.rows" class="form-control" type="number" id="text_rows_widedit"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-control" for="text_placeholder_widedit">Placeholder</label>
+                        <input ng-model="model.widget.placeholder" class="form-control" id="text_placeholder_widedit"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-control" for="text_formatted_widedit">Formatted</label>
+                        <input ng-model="model.widget.formatted" type="checkbox" id="text_formatted_widedit"/>
+                    </div>
+                </form>
+            </div>
+            <div ng-switch-when="HEADER">
+                <form>
+                    <div class="form-group">
+                        <label class="label-control" for="header_name_widedit">Name</label>
+                        <input ng-model="model.widget.name" class="form-control" id="header_name_widedit"/>
+                        <span class="help-block">Name should not be empty. </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-control" for="text_widedit">Text</label>
+                        <input ng-model="model.widget.text"
+                               type="text"
+                               id="text_widedit"
+                               placeholder="content of the header"
+                               class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="label-control" for="size_widedit">Size</label>
+                        <input ng-model="model.widget.size"
+                               type="number"
+                               id="size_widedit"
+                               class="form-control"
+                               min="1"
+                               max="6">
+                        <span class="help-block">Size of header ranges from 1 to 6. </span>
+                    </div>
+                </form>
+            </div>
+            <div ng-switch-when="IMAGE">
+
+                <form action="/api/upload" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="label-control" for="image_name_widedit">Name</label>
+                        <input name="widgetName" ng-model="model.widget.name" class="form-control" id="image_name_widedit"/>
+                        <span class="help-block">Name should not be empty. </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-control" for="url_widedit">URL</label>
+                        <!--If the user wants to edit an existing image widget by uploading, the browser will complain
+                        that the local address starts with "/uploads/" is not a standard URL. So the type is set to text
+                        here.-->
+                        <input ng-model="model.widget.url"
+                               type="text"
+                               id="url_widedit"
+                               class="form-control"
+                               placeholder="URL of the image">
+                    </div>
+                    <div class="form-group">
+                        <label class="label-control" for="width_widedit">Width</label>
+                        <input ng-model="model.widget.width"
+                               name="width"
+                               type="text"
+                               id="width_widedit"
+                               class="form-control"
+                               placeholder="the width of the image including unit">
+                        <span class="help-block">e.g. 500px, 80%</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-control" for="file_widedit">Upload</label>
+                        <input type="file" id="file_widedit" name="myFile">
+                        <input name="widgetId" value="{{model.widget._id}}" class="widget-hidden-info"/>
+                        <input name="userId" value="{{model.userId}}" class="widget-hidden-info"/>
+                        <input name="webId" value="{{model.webId}}" class="widget-hidden-info"/>
+                        <input name="pageId" value="{{model.pageId}}" class="widget-hidden-info"/>
+                        <button class="submit btn btn-primary btn-block submit-button">Upload Image</button>
+                    </div>
+                </form>
+
+                <a href="#/user/{{model.userId}}/website/{{model.webId}}/page/{{model.pageId}}/widget/{{model.widgetId}}/flickr"
+                   class="btn btn-warning btn-block flickr-search-button">
+                    Search on Flickr
+                </a>
+
+            </div>
+            <div ng-switch-when="YOUTUBE">
+                <form>
+                    <div class="form-group">
+                        <label class="label-control" for="youtube_name_widedit">Name</label>
+                        <input ng-model="model.widget.name" class="form-control" id="youtube_name_widedit"/>
+                        <span class="help-block">Name should not be empty. </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-control" for="url_widedit">URL</label>
+                        <input ng-model="model.widget.url"
+                               type="url"
+                               id="url_widedit"
+                               class="form-control"
+                               placeholder="URL of the video">
+                    </div>
+                    <div class="form-group">
+                        <label class="label-control" for="width_widedit">Width</label>
+                        <input ng-model="model.widget.width"
+                               type="text"
+                               id="width_widedit"
+                               class="form-control"
+                               placeholder="the width of the image including unit">
+                        <span class="help-block">e.g. 500px, 80%</span>
+                    </div>
+                </form>
+            </div>
+            <div ng-switch-when="HTML">
+                <div class="form-group">
+                    <label class="label-control" for="html_name_widedit">Name</label>
+                    <input ng-model="model.widget.name" class="form-control" id="html_name_widedit"/>
+                    <span class="help-block">Name should not be empty. </span>
+                </div>
+                <div class="form-group">
+                    <div ng-model="model.widget.text"
+                         text-angular
+                         ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+                     ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+                     ['indent','outdent'],['html']]">
+                    </div>
+                </div>
+                <!--<form>-->
+                    <!--<div class="form-group">-->
+                        <!--<label class="label-control" for="text_widedit">Text</label>-->
+                        <!--<input ng-model="model.widget.text"-->
+                               <!--type="text"-->
+                               <!--id="text_widedit"-->
+                               <!--placeholder="Html code including tags"-->
+                               <!--class="form-control">-->
+                    <!--<span class="help-block">-->
+                        <!--e.g. <pre>&lt;h1&gt;Lorem ipsum&lt;/h1&gt;</pre>-->
+                             <!--<pre>&lt;p&gt;Lorem ipsum is ... &lt;/p&gt;</pre>-->
+                    <!--</span>-->
+                    <!--</div>-->
+                <!--</form>-->
+            </div>
+            <div ng-switch-default></div>
+        </div>
+    </form>
+    <a ng-click="model.deleteWidget(model.widget)" class="btn btn-danger btn-block">Delete</a>
+
 </div>
+
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-text pull-right">
-            <a class="navbar-link"
-               href="#/user/{{model.userId}}">
-                <span class="glyphicon glyphicon-user text-primary"></span>
+            <a href="#/user/{{model.userId}}">
+                <span class="glyphicon glyphicon-user"></span>
             </a>
         </div>
     </div>

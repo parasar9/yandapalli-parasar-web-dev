@@ -1,15 +1,19 @@
-module.exports = function(){
-  var mongoose = require("mongoose");
+module.exports = function () {
+    var mongoose = require("mongoose");
+    var uniqueValidator = require('mongoose-unique-validator');
 
-
-    var UserSchema = mongoose.Schema({
-        username: {type: String,required : true},
+    var userSchema = mongoose.Schema({
+        username: {type: String, required: true, unique: true},
         password: String,
         firstName: String,
         lastName: String,
-        dob: Date,
+        email: String,
+        phone: String,
+        // dob: Date,
         dateCreated: {type: Date, default: Date.now}
-    },{collection: "assignment.user"});
+    }, {collection: "assignment.user"});
 
-        return UserSchema;
+    userSchema.plugin(uniqueValidator);
+    return userSchema;
+
 };

@@ -1,17 +1,16 @@
 (function(){
     angular
         .module("WebAppMaker")
-        .controller("FlickrImageSearchController", FlickrImageSearchController);
+        .controller("FlickrImageSelectController", FlickrImageSelectController);
 
-    function FlickrImageSearchController($location, $routeParams, FlickrService, WidgetService) {
+    function FlickrImageSelectController($location, $routeParams, FlickrService, WidgetService) {
         var vm = this;
         vm.pageId = $routeParams.pid;
         vm.userId = $routeParams.uid;
         vm.webId = $routeParams.wid;
-        vm.widgetId = $routeParams.wgid;
 
         vm.searchPhotos = searchPhotos;
-        vm.updatePhoto = updatePhoto;
+        vm.selectPhoto = selectPhoto;
         vm.getPhotoInfo = getPhotoInfo;
 
         function searchPhotos(searchText) {
@@ -31,26 +30,24 @@
             vm.url = url;
         }
 
-        function updatePhoto() {
-            if (vm.url) {
-                var photoWidget = {
-                    width: "100%",
-                    url: vm.url
-                };
+        function selectPhoto(name) {
+            if (vm.url && name) {
                 WidgetService
-                    .updateWidget(vm.widgetId, photoWidget)
+                    .createWidget("IMAGE", {name: name, url: vm.url, width: "100%"}, vm.pageId)
                     .then(
                         function () {
-                            $location.url("/user/" + vm.userId + "/website/" + vm.webId + "/page/" + vm.pageId + "/widget/" + vm.widgetId);
+                            $location.url("/user/" + vm.userId + "/website/" + vm.webId + "/page/" + vm.pageId + "/widget");
                         },
                         function () {
                             vm.error = "Unable to select the photo. ";
-                        });
+                        }
+                    );
             } else {
-                vm.error = "URL should not be empty. ";
+                vm.error = "URL and name should not be empty. ";
             }
 
         }
+
 
     }
 })();

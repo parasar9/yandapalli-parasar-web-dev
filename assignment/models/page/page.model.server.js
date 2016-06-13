@@ -1,45 +1,42 @@
-/**
- * Created by parashar on 6/10/2016.
- */
 module.exports = function () {
 
-    var mongoose = require("mongoose")
-    var PageSchema = require("./page.schema.server")();
-    var Page = mongoose.model("Page", PageSchema);
+    var mongoose = require("mongoose");
+    var pageSchema = require("./page.schema.server")();
+    var page = mongoose.model("Page", pageSchema);
 
     var api = {
         createPage: createPage,
         findAllPagesForWebsite: findAllPagesForWebsite,
         findPageById: findPageById,
-        updatePage: updatePage,
-        deletePage: deletePage
+        deletePage: deletePage,
+        updatePage: updatePage
     };
     return api;
 
-    function createPage(websiteId, newPage) {
-        newPage._website = websiteId;
-        return Page.create(newPage);
+    function createPage(newPage) {
+        return page.create(newPage);
     }
 
-    function findAllPagesForWebsite(websiteId) {
-        return Page.find({"_website": websiteId});
+    function findAllPagesForWebsite(webId) {
+        return page.find({websiteId: webId});
     }
 
     function findPageById(pageId) {
-        return Page.findById(pageId);
-    }
-
-    function updatePage(pageId, page) {
-        return Page
-            .update({_id: pageId},{
-                $set: {
-                    name: page.name,
-                    title: page.title
-                }
-            });
+        return page.findOne({_id: pageId});
     }
 
     function deletePage(pageId) {
-        return Page.remove({_id: pageId});
+        return page.remove({_id: pageId});
     }
+
+    function updatePage(pageId, newPage) {
+        // delete user._id;
+        return page.update({_id: pageId},{
+            $set: {
+                name: newPage.name,
+                title: newPage.title
+            }
+        });
+    }
+
 };

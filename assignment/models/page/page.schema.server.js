@@ -1,17 +1,13 @@
-/**
- * Created by parashar on 6/10/2016.
- */
-module.exports = function() {
+module.exports = function () {
     var mongoose = require("mongoose");
 
-    var PageSchema = mongoose.Schema({
-        _website: {type: mongoose.Schema.ObjectId, ref: "Website"},
-        name: {type: String, required: true},
+    var pageSchema = mongoose.Schema({
+        websiteId: {type: mongoose.Schema.ObjectId, ref: "Website"},
+        name: String,
         title: String,
         dateCreated: {type: Date, default: Date.now}
     }, {collection: "assignment.page"});
 
-    return PageSchema;
+    return pageSchema;
+
 };
-
-

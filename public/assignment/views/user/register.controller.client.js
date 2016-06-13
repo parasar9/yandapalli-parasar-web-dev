@@ -1,49 +1,38 @@
-/* author @ parashar */
-(function () {
+(function() {
     angular
         .module("WebAppMaker")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($location, UserService) {
+    function RegisterController ($location, UserService) {
         var vm = this;
-        vm.register = register;
-
-        function register(username, password, verifyPassword) {
-            if (username && password && verifyPassword) {
-                if (password !== verifyPassword) {
-                    vm.error = "Passwords do not match.";
-                }
-                else {
+        vm.createNewUser = function createNewUser(username, password, veri_password) {
+            if (username && password && veri_password) {
+                if (password === veri_password) {
                     UserService
-                        .findUserByUsername(username)
-                        .then(function (response) {
-                            var user = response.data;
-                            if (user._id) {
-                                vm.error = "Username already exists.";
-                            }
-                            else {
-                                var newUser = {
-                                    username: username,
-                                    password: password
-                                };
-                                UserService
-                                    .createUser(newUser)
-                                    .then(function (response) {
-                                        var user = response.data;
-                                        if (user) {
-                                            $location.url("/user/" + user._id);
-                                        }
-                                        else {
-                                            vm.error = "Unable to create new user."
-                                        }
-                                    });
-                            }
-                        });
-                }
+                        .createUser(username, password)
+                        .then(
+                            function (response) {
+                                var result = response.data;
+                                if (result && result._id) {
+                                    $location.url("/user/" + result._id);
+                                } else {
+                                    if (result && result.errors) {
+                                        vm.error = "Username already exists. ";
+                                    }
+                                }
+                            });
+                    }
+                    else {
+                    vm.error = "Password not consistent.";
+                    }
             }
             else {
-                vm.error = "Missing required fields."
+                vm.error = "Username and password should not be empty. ";
             }
+                    // var res = UserService.createUser(username, password);
+
+
         }
     }
+
 })();

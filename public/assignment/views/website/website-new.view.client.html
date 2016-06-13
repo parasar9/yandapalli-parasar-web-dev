@@ -1,52 +1,54 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-text pull-left">
-            <a href="#/user/{{model.userId}}/website"
-               class="navbar-link">
-                <span class="glyphicon glyphicon-chevron-left nav-back-btn"></span>
+<div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <a href="#/user/{{model.userId}}/website" class="navbar-text pull-left">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="navbar-brand">New Website</a>
+            <a ng-click="model.createWebsite(name, description)" class="navbar-text pull-right">
+                <span class="glyphicon glyphicon-ok"></span>
             </a>
         </div>
-        <div class="navbar-header pull-left">
-            <a class="navbar-brand"
-               href="">New Website</a>
-        </div>
-        <div class="navbar-text pull-right">
-            <a ng-click="model.createWebsite(name,desc)" class="navbar-link">
-                <span class="glyphicon glyphicon-ok black-btn"></span>
-            </a>
-        </div>
+    </nav>
+
+    <div ng-show="model.error" class="alert alert-danger alert-dismissible" role="alert">
+        <strong>{{model.error}}</strong>
     </div>
-</nav>
-<div class="container-fluid">
-    <div ng-if="model.error" class="alert alert-danger">
-        {{model.error}}
-    </div>
+    <!--<div ng-show="model.name_error" class="alert alert-danger alert-dismissible" role="alert">-->
+    <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+    <!--<span aria-hidden="true">&times;</span>-->
+    <!--</button>-->
+    <!--<strong>{{model.name_error}}</strong>-->
+    <!--</div>-->
     <form>
         <div class="form-group">
-            <label for="name">Name</label>
+            <label class="label-control" for="name_newweb">Name</label>
             <input ng-model="name"
-                   id="name"
                    type="text"
-                   placeholder="Name"
-                   class="form-control"/>
+                   id="name_newweb"
+                   placeholder="Input the website name here."
+                   class="form-control"
+                   required="required">
+            <span class="help-block">Name should not be empty. </span>
         </div>
         <div class="form-group">
-            <label for="desc">Description</label>
-        <textarea ng-model="desc"
-                  id="desc"
-                  rows="4"
-                  class="form-control"
-                  placeholder="Description"></textarea>
+            <label class="label-control" for="des_newweb">Description</label>
+                <textarea ng-model="description"
+                          id="des_newweb"
+                          rows="3"
+                          placeholder="Please input a brief description of the website."
+                          class="form-control"></textarea>
         </div>
     </form>
-</div>
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="navbar-text pull-right">
-            <a class="navbar-link"
-               href="#/user/{{model.userId}}">
-                <span class="glyphicon glyphicon-user text-primary"></span>
-            </a>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="navbar-text pull-right">
+                <a href="#/user/{{model.userId}}">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+
+</div>

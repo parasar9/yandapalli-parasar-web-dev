@@ -1,32 +1,40 @@
-/* author @ parashar */
-(function () {
+(function() {
     angular
         .module("WebAppMaker")
         .controller("NewWidgetController", NewWidgetController);
-    
-    function NewWidgetController($location, $routeParams, WidgetService) {
-        var vm = this;
-        vm.createWidget = createWidget;
-        
-        vm.userId = $routeParams.userId;
-        vm.websiteId = $routeParams.websiteId;
-        vm.pageId = $routeParams.pageId;
 
-        function createWidget(widgetType) {
-            var newWidget = {
-                widgetType: widgetType
-            };
-            WidgetService
-                .createWidget(vm.pageId, newWidget)
-                .then(function (response) {
-                    var widget = response.data;
-                    if (widget) {
-                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + widget._id);
-                    }
-                    else {
-                        vm.error = "Unable to create widget."
-                    }
-                });
+    function NewWidgetController ($location, $routeParams, WidgetService) {
+        var vm = this;
+        vm.userId = $routeParams.uid;
+        vm.webId = $routeParams.wid;
+        vm.pageId = $routeParams.pid;
+        vm.type = $routeParams.type;
+
+        vm.createWidget = function createWidget(content){
+            if (content.name) {
+                WidgetService
+                    .createWidget(vm.type, content, vm.pageId)
+                    .then(
+                        function () {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.webId + "/page/" + vm.pageId + "/widget");
+                        },
+                        function () {
+                            vm.error = "Unable to create widget. ";
+                        });
+            }
+            else {
+                vm.error = "Widget name should not be empty. ";
+            }
+
         }
+
     }
+
 })();
+
+
+
+
+
+
+

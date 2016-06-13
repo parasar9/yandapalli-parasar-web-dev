@@ -1,77 +1,60 @@
-/* author @ parashar */
-
-(function () {
+(function() {
     angular
         .module("WebAppMaker")
         .controller("EditWidgetController", EditWidgetController);
-    
-    function EditWidgetController($location, $routeParams, WidgetService) {
+
+    function EditWidgetController ($location, $routeParams, WidgetService) {
         var vm = this;
-        vm.updateHeader = updateHeader;
-        vm.updateMedia = updateMedia;
-        vm.deleteWidget = deleteWidget;
-        
-        vm.userId = $routeParams.userId;
-        vm.websiteId = $routeParams.websiteId;
-        vm.pageId = $routeParams.pageId;
-        vm.widgetId = $routeParams.widgetId;
+        vm.pageId = $routeParams.pid;
+        vm.userId = $routeParams.uid;
+        vm.webId = $routeParams.wid;
+        vm.widgetId = $routeParams.wgid;
 
         function init() {
             WidgetService
                 .findWidgetById(vm.widgetId)
                 .then(function (response) {
-                    vm.widget = response.data;
+                    vm.widget = angular.copy(response.data);
                 });
         }
         init();
 
-        function updateHeader(newWidget) {
-            if(newWidget.text && newWidget.size) {
+        vm.updateWidget = function updateWidget(wid) {
+            if (wid.name) {
                 WidgetService
-                    .updateWidget(vm.widgetId, newWidget)
+                    .updateWidget(vm.widgetId, wid)
                     .then(
-                        function (response) {
-                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                        function () {
+                            vm.success = "Widget updated. ";
                         },
-                        function (error) {
-                            vm.error = "Error updating widget details."
-                        }
-                    );
+                        function () {
+                            vm.error = "Update failed. ";
+                        });
+            } else {
+                vm.error = "Widget name should not be empty. ";
             }
-            else{
-                vm.error = "Text and Size are required fields.";
-            }
-        }
 
-        function updateMedia(newWidget) {
-            if(newWidget.url && newWidget.width) {
-                WidgetService
-                    .updateWidget(vm.widgetId, newWidget)
-                    .then(
-                        function (response) {
-                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-                        },
-                        function (error) {
-                            vm.error = "Error updating widget details."
-                        }
-                    );
-            }
-            else{
-                vm.error = "URL and Width are required fields.";
-            }
-        }
+        };
 
-        function deleteWidget(){
+        vm.deleteWidget = function deleteWidget() {
             WidgetService
                 .deleteWidget(vm.widgetId)
                 .then(
-                    function (response) {
-                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                    function () {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.webId + "/page/" + vm.pageId + "/widget");
                     },
-                    function (error) {
-                        vm.error = "Unable to delete widget";
-                    }
-                );
-        }
+                    function () {
+                        vm.error = "Unable to delete the page. ";
+                    });
+        };
+
     }
+
 })();
+
+
+
+
+
+
+

@@ -1,55 +1,56 @@
-/* author @ parashar */
-
-(function () {
+(function() {
     angular
         .module("WebAppMaker")
         .controller("EditWebsiteController", EditWebsiteController);
 
-    function EditWebsiteController($location, $routeParams, WebsiteService) {
+    function EditWebsiteController ($location, $routeParams, WebsiteService) {
         var vm = this;
-        vm.updateWebsite = updateWebsite;
+        var userId = $routeParams.uid;
+        var webId = $routeParams.wid;
         vm.deleteWebsite = deleteWebsite;
-
-        vm.userId = $routeParams.userId;
-        vm.websiteId = $routeParams.websiteId;
+        vm.updateWebsite = updateWebsite;
 
         function init() {
             WebsiteService
-                .findWebsiteById(vm.websiteId)
-                .then(function (response) {
-                    vm.website = response.data;
+                .findWebsiteById(webId)
+                .then(function(response){
+                    vm.web = angular.copy(response.data);
                 });
         }
         init();
 
-        function updateWebsite(newWebsite) {
-            if(newWebsite.name) {
-                WebsiteService
-                    .updateWebsite(vm.websiteId, newWebsite)
-                    .then(
-                        function (response) {
-                            $location.url("/user/" + vm.userId + "/website");
-                        },
-                        function (error) {
-                            vm.error = "Error updating website details."
-                        });
-            }
-            else {
-                vm.error = "Website name cannot be empty."
-            }
+        function deleteWebsite() {
+            WebsiteService
+                .deleteWebsite(webId)
+                .then(
+                    function () {
+                        $location.url("/user/" + userId + "/website");
+                    },
+                    function () {
+                        vm.error = "Unable to delete website.";
+                    });
+
         }
 
-        function deleteWebsite(){
-            WebsiteService
-                .deleteWebsite(vm.websiteId)
-                .then(
-                    function (response) {
-                        $location.url("/user/"+vm.userId+"/website");
-                    },
-                    function (error) {
-                        vm.error = "Unable to delete website";
-                    }
-                );
+        function updateWebsite(newWeb) {
+            if (newWeb.name) {
+                WebsiteService
+                    .updateWebsite(newWeb)
+                    .then(
+                        function () {
+                            vm.success = "Website updated. ";
+                        },
+                        function () {
+                            vm.error = "Update failed. ";
+                        });
+            } else {
+                vm.error = "Website name should not be empty. ";
+            }
+
         }
+
     }
 })();
+
+
+

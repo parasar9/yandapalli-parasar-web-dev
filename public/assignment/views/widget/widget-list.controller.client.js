@@ -1,43 +1,60 @@
-/* author @ parashar */
-
-(function () {
+(function() {
     angular
         .module("WebAppMaker")
         .controller("WidgetListController", WidgetListController);
 
-    function WidgetListController($sce, $routeParams, WidgetService) {
+    function WidgetListController ($sce, $routeParams, WidgetService) {
         var vm = this;
-        vm.getSafeHtml = getSafeHtml;
-        vm.getSafeUrl = getSafeUrl;
+        vm.pageId = $routeParams.pid;
+        vm.userId = $routeParams.uid;
+        vm.webId = $routeParams.wid;
 
-        vm.userId = $routeParams.userId;
-        vm.websiteId = $routeParams.websiteId;
-        vm.pageId = $routeParams.pageId;
+        vm.getSafeHtml = function getSafeHtml(wid) {
+            return $sce.trustAsHtml(wid.text);
+        };
+
+        vm.getSafeUrl = function getSafeUrl(wid) {
+            var urlParts = wid.url.split("/");
+            var id = urlParts[urlParts.length-1];
+            var url = "https://www.youtube.com/embed/" + id;
+            return $sce.trustAsResourceUrl(url);
+        };
+
+        vm.reorderWidget = function reorderWidget(start, end) {
+            WidgetService
+                .reorderWidget(start, end, vm.pageId)
+                .then(
+                    function () {
+                        init();
+                    },
+                    function () {
+                        vm.error = "Reordering failed. ";
+                    }
+                );
+            // console.log([start, end]);
+        };
+
 
         function init(){
             WidgetService
                 .findWidgetsByPageId(vm.pageId)
                 .then(function (response) {
                     vm.widgets = response.data;
-                    $(".widget-sortable")
-                        .sortable({
-                            axis: "y"
-                        });
+                    // $(".container-fluid").sortable({
+                    //     axis: "y",
+                    //     handle: ".widget-handle"});
                 });
         }
         init();
-
-        function getSafeHtml(widget) {
-            return $sce.trustAsHtml(widget.text);
-        }
-
-        function getSafeUrl(widget) {
-            if(widget.url) {
-                var urlParts = widget.url.split("/");
-                var id = urlParts[urlParts.length - 1];
-                var url = "https://www.youtube.com/embed/" + id;
-                return $sce.trustAsResourceUrl(url);
-            }
-        }
+        
+        
     }
+
 })();
+
+
+
+
+
+
+

@@ -1,56 +1,53 @@
-/* author @ parashar */
-(function () {
+(function() {
     angular
         .module("WebAppMaker")
         .controller("EditPageController", EditPageController);
-    
-    function EditPageController($location, $routeParams, PageService) {
+
+    function EditPageController ($location, $routeParams, PageService) {
         var vm = this;
-        vm.updatePage = updatePage;
-        vm.deletePage = deletePage;
-        
-        vm.userId = $routeParams.userId;
-        vm.websiteId = $routeParams.websiteId;
-        vm.pageId = $routeParams.pageId;
+        vm.userId = $routeParams.uid;
+        var webId = $routeParams.wid;
+        var pageId = $routeParams.pid;
 
         function init() {
             PageService
-                .findPageById(vm.pageId)
+                .findPageById(pageId)
                 .then(function (response) {
-                    vm.page = response.data;
+                    vm.page = angular.copy(response.data);
                 });
         }
         init();
-
-        function updatePage(newPage) {
-            if(newPage.name) {
+        
+        vm.updatePage = function updatePage(page) {
+            if (page.name) {
                 PageService
-                    .updatePage(vm.pageId, newPage)
+                    .updatePage(pageId, page)
                     .then(
-                        function (response) {
-                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                        function () {
+                            vm.success = "Page updated. ";
                         },
-                        function (error) {
-                            vm.error = "Error while updating page."
-                        }
-                    );
+                        function () {
+                            vm.error = "Update failed. ";
+                        });
+            } else {
+                vm.error = "Page name should not be empty. ";
             }
-            else {
-                vm.error = " page name is required"
-            }
-        }
 
-        function deletePage(){
+        };
+        
+        vm.deletePage = function deletePage() {
             PageService
-                .deletePage(vm.pageId)
+                .deletePage(pageId)
                 .then(
-                    function (response) {
-                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    function () {
+                        $location.url("/user/" + vm.userId + "/website/" + webId + "/page");
                     },
-                    function (error) {
-                        vm.error = "Unable to delete page";
-                    }
-                );
-        }
+                    function () {
+                        vm.error = "Unable to delete the page. ";
+                    });
+
+        };
     }
+
+
 })();

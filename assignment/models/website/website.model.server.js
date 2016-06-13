@@ -1,46 +1,47 @@
-/**
- * Created by parashar on 6/10/2016.
- */
-
 module.exports = function () {
 
-    var mongoose = require("mongoose")
-    var WebsiteSchema = require("./website.schema.server")();
-    var Website = mongoose.model("Website", WebsiteSchema);
+    var mongoose = require("mongoose");
+    var websiteSchema = require("./website.schema.server")();
+    var website = mongoose.model("Website", websiteSchema);
 
     var api = {
         createWebsite: createWebsite,
-        findAllWebsitesForUser: findAllWebsitesForUser,
+        findWebsitesByUser: findWebsitesByUser,
         findWebsiteById: findWebsiteById,
-        updateWebsite: updateWebsite,
-        deleteWebsite: deleteWebsite
+        deleteWebsite: deleteWebsite,
+        updateWebsite: updateWebsite
     };
     return api;
 
-    function createWebsite(userId, newWebsite) {
-        newWebsite._user = userId;
-        return Website.create(newWebsite);
+    //Creates a new website instance for user whose _id is userId
+    function createWebsite(newWebsite) {
+        return website.create(newWebsite);
     }
 
-    function findAllWebsitesForUser(userId) {
-        return Website.find({"_user": userId});
+    //Retrieves all website instances for user whose _id is userId
+    function findWebsitesByUser(userId) {
+        return website.find({developerId: userId});
     }
 
+    //Retrieves single website instance whose _id is websiteId
     function findWebsiteById(websiteId) {
-        return Website.findById(websiteId);
+        return website.findOne({_id: websiteId});
     }
 
-    function updateWebsite(websiteId, website) {
-        return Website
-            .update({_id: websiteId},{
-                $set: {
-                    name: website.name,
-                    description: website.description
-                }
-            });
-    }
-
+    //Removes website instance whose _id is websiteId
     function deleteWebsite(websiteId) {
-        return Website.remove({_id: websiteId});
+        return website.remove({_id: websiteId});
     }
+    
+    //Updates website instance whose _id is websiteId
+    function updateWebsite(websiteId, web) {
+        // delete user._id;
+        return website.update({_id: websiteId},{
+            $set: {
+                name: web.name,
+                description: web.description
+            }
+        });
+    }
+
 };

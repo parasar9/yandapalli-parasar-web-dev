@@ -1,75 +1,74 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <div class="navbar-header pull-left">
-            <a class="navbar-brand"
-               href="">Profile</a>
-        </div>
-        <div class="navbar-text pull-right">
-            <a ng-click="model.updateUser(model.user)"
-               class="navbar-link">
-                <span class="glyphicon glyphicon-ok black-btn"></span>
-            </a>
-        </div>
+        <a class="navbar-brand">Profile</a>
+        <a ng-click="model.updateUser(model.user)" class="navbar-text pull-right">
+            <span class="glyphicon glyphicon-ok"></span>
+        </a>
     </div>
 </nav>
-<div class="container-fluid">
-    <div ng-if="model.success" class="alert alert-success">
-        {{model.success}}
+
+<div class="container">
+    <div ng-show="model.success" class="alert alert-success alert-dismissible" role="alert">
+        <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+            <!--<span aria-hidden="true">&times;</span>-->
+        <!--</button>-->
+        <strong>{{model.success}}</strong>
     </div>
-    <div ng-if="model.error" class="alert alert-danger">
-        {{model.error}}
+    <div ng-show="model.error" class="alert alert-danger alert-dismissible" role="alert">
+        <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+            <!--<span aria-hidden="true">&times;</span>-->
+        <!--</button>-->
+        <strong>{{model.error}}</strong>
     </div>
     <form>
         <div class="form-group">
-            <label for="username">Username</label>
-            <input ng-model="model.user.username"
-                   id="username"
-                   type="text"
-                   class="form-control"
-                   placeholder="username"/>
+            <label class="label-control">Username</label>
+            <span class="form-control uneditable-input">{{model.user.username}}</span>
         </div>
         <div class="form-group">
-            <label for="email">Email</label>
+            <label class="label-control" for="email_profile">Email</label>
             <input ng-model="model.user.email"
-                   id="email"
                    type="email"
                    class="form-control"
-                   placeholder="alice@wonderland.com"/>
+                   id="email_profile"
+                   placeholder="alice@wonderland.com">
         </div>
         <div class="form-group">
-            <label for="firstName">First Name</label>
+            <label class="label-control" for="phone_profile">Phone</label>
+            <input ng-model="model.user.phone"
+                   type="text"
+                   class="form-control"
+                   id="phone_profile">
+        </div>
+        <div class="form-group">
+            <label class="label-control" for="firstname_profile">First Name</label>
             <input ng-model="model.user.firstName"
-                   id="firstName"
                    type="text"
                    class="form-control"
-                   placeholder="First Name"/>
+                   id="firstname_profile"
+                   placeholder="first name">
         </div>
         <div class="form-group">
-            <label for="lastName">Last Name</label>
+            <label class="label-control" for="lastname_profile">Last Name</label>
             <input ng-model="model.user.lastName"
-                   id="lastName"
                    type="text"
                    class="form-control"
-                   placeholder="Last Name"/>
+                   id="lastname_profile"
+                   placeholder="last name">
         </div>
-        <a class="btn btn-primary btn-block"
-           href="#/user/{{model.user._id}}/website"
-           role="button">Websites</a>
-        <a class="btn btn-danger btn-block"
-           href="#/login"
-           role="button">Logout</a>
-        <a class="btn btn-danger btn-block"
-           ng-click="model.unregister()"
-           role="button">Unregister</a>
     </form>
-</div>
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="navbar-text pull-right">
-            <a class="navbar-link"
-               href="">
-                <span class="glyphicon glyphicon-user text-primary"></span>
-            </a>
-        </div>
+
+    <div class="form-group">
+        <a class="btn btn-primary btn-block" href="#/user/{{model.user._id}}/website">Websites</a>
+        <a class="btn btn-danger btn-block" href="#/login">Logout</a>
+        <a class="btn btn-warning btn-block" ng-click="model.unregister()">unregister</a>
     </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
 </nav>
+
+
+
+
+

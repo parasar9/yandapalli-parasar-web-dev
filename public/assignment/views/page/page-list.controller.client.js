@@ -1,22 +1,28 @@
-/* author @ parashar */
-(function () {
+(function() {
     angular
         .module("WebAppMaker")
         .controller("PageListController", PageListController);
 
-    function PageListController($routeParams, PageService) {
+    function PageListController ($routeParams, PageService) {
         var vm = this;
+        vm.userId = $routeParams.uid;
+        vm.webId = $routeParams.wid;
 
-        vm.userId = $routeParams.userId;
-        vm.websiteId = $routeParams.websiteId;
 
-        function init(){
+        function init() {
             PageService
-                .findPageByWebsiteId(vm.websiteId)
+                .findPageByWebsiteId(vm.webId)
                 .then(function (response) {
-                    vm.pages = response.data;
+                    vm.pages = angular.copy(response.data);
                 });
         }
         init();
     }
+
+
 })();
+
+
+
+
+
