@@ -1,8 +1,8 @@
 module.exports = function () {
 
-    // for localhost
-    var mongoose = require("mongoose");
-    mongoose.connect('mongodb://localhost/CS5610summer1');
+      // // for localhost
+    // var mongoose = require("mongoose");
+    // mongoose.connect('mongodb://localhost/CS5610summer1');
 
     // var mongoose = require("mongoose");
     // var connectionString = 'mongodb://127.0.0.1:27017/test';
