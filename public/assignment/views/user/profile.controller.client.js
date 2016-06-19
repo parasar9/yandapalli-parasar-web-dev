@@ -3,12 +3,13 @@
         .module("WebAppMaker")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($location, $routeParams, UserService) {
+    function ProfileController($location, $routeParams, $rootScope, UserService) {
         var vm = this;
         vm.updateUser = updateUser;
         vm.unregister = unregister;
+        vm.logout = logout;
 
-        var uid = $routeParams.uid;
+        var uid = $rootScope.currentUser._id;
 
         function init() {
             UserService
@@ -18,19 +19,32 @@
                 });
 
 
-            // vm.user = angular.copy(UserService.findUserById(uid));
+             
         }
         init();
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function () {
+                        $location.url("/login");
+                    },
+                    function () {
+                        $location.url("/login");
+                    }
+                )
+        }
 
         function updateUser(newUser) {
             UserService
                 .updateUser(uid, newUser)
                 .then(
-                    function () {
-                        vm.success = "User updated. ";
+                    function (response) {
+                        vm.success = response.data;
                     },
-                    function () {
-                        vm.error = "Update failed. ";
+                    function (err) {
+                        vm.error = err.data;
                     }
                 );
         }
@@ -42,8 +56,8 @@
                     function () {
                         $location.url("/login");
                     },
-                    function () {
-                        vm.error = "Deregistration failed. ";
+                    function (err) {
+                        vm.error = err.data;
                     }
                 );
         }

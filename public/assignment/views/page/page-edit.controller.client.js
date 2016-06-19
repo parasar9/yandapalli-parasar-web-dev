@@ -23,11 +23,11 @@
                 PageService
                     .updatePage(pageId, page)
                     .then(
-                        function () {
-                            vm.success = "Page updated. ";
+                        function (response) {
+                            vm.success = response.data;
                         },
-                        function () {
-                            vm.error = "Update failed. ";
+                        function (err) {
+                            vm.error = err.data;
                         });
             } else {
                 vm.error = "Page name should not be empty. ";
@@ -42,8 +42,8 @@
                     function () {
                         $location.url("/user/" + vm.userId + "/website/" + webId + "/page");
                     },
-                    function () {
-                        vm.error = "Unable to delete the page. ";
+                    function (err) {
+                        vm.error = err.data;
                     });
 
         };

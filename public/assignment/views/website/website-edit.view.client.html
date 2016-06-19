@@ -1,32 +1,37 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <a href="#/user/{{model.web.developerId}}/website" class="navbar-text pull-left">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="navbar-brand">Edit Website</a>
-        <a ng-click="model.updateWebsite(model.web)" class="navbar-text pull-right">
-            <span class="glyphicon glyphicon-ok"></span>
-        </a>
-    </div>
-</nav>
-
 <div class="container">
-    <div ng-show="model.success" class="alert alert-success alert-dismissible" role="alert">
-        <strong>{{model.success}}</strong>
-    </div>
-    <div ng-show="model.error" class="alert alert-danger alert-dismissible" role="alert">
-        <strong>{{model.error}}</strong>
-    </div>
-    <form>
+    <form name="webEditForm" novalidate>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <a href="#/user/{{model.web.developerId}}/website" class="navbar-text pull-left">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="navbar-brand">Edit Website</a>
+                <button type="submit" ng-click="model.updateWebsite(model.web)" class="navbar-text pull-right">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </button>
+            </div>
+        </nav>
+
+        <div ng-show="model.success" class="alert alert-success alert-dismissible" role="alert">
+            <strong>{{model.success}}</strong>
+        </div>
+        <div ng-show="model.error" class="alert alert-danger alert-dismissible" role="alert">
+            <strong>{{model.error}}</strong>
+        </div>
+
         <div class="form-group">
             <label class="label-control" for="name_editweb">Website Name</label>
             <input ng-model="model.web.name"
+                   name="name"
                    type="text"
                    id="name_editweb"
                    placeholder="Please revise your website name here."
                    class="form-control"
-                   required="required">
-            <span class="help-block">Name should not be empty. </span>
+                   required>
+            <span class="fa fa-exclamation-triangle validate-alert"
+                  ng-show="webEditForm.$submitted && !webEditForm.name.$viewValue">
+                Website name should not be empty.
+            </span>
         </div>
         <div class="form-group">
             <label class="label-control" for="des_editweb">Website Description</label>
@@ -39,17 +44,18 @@
     </form>
 
     <a ng-click="model.deleteWebsite()" class="btn btn-danger btn-block">Delete</a>
-</div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <a class="navbar-text pull-left">
-            <span class="glyphicon glyphicon-share-alt"></span>
-        </a>
-        <div class="navbar-text pull-right">
-            <a href="#/user/{{model.web.developerId}}">
-                <span class="glyphicon glyphicon-user"></span>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container-fluid">
+            <a class="navbar-text pull-left">
+                <span class="glyphicon glyphicon-share-alt"></span>
             </a>
+            <div class="navbar-text pull-right">
+                <a href="#/user/{{model.web.developerId}}">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</div>

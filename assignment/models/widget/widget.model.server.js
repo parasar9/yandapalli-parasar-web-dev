@@ -49,7 +49,7 @@ module.exports = function () {
             );
     }
 
-    // creates Html header on the given page indicated by pageId
+
     function createHeader(content, pageId, len) {
         return widget.create(
             {
@@ -63,7 +63,7 @@ module.exports = function () {
         );
     }
 
-    // creates image or video on the given page indicated by pageId
+
     function createMedia(content, pageId, media, len) {
         return widget.create(
             {
@@ -77,7 +77,7 @@ module.exports = function () {
         );
     }
 
-    // creates Html content on the given page indicated by pageId
+     
     function createHtml(content, pageId, len) {
         return widget.create(
             {
@@ -90,7 +90,7 @@ module.exports = function () {
         );
     }
 
-    // creates Html content on the given page indicated by pageId
+
     function createText(content, pageId, len) {
         return widget.create(
             {

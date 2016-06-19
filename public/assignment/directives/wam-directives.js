@@ -17,11 +17,9 @@
                     },
                     stop: function (event, ui) {
                         endIndex = ui.item.index();
-                        // console.log([startIndex, endIndex]);
+                        
                         scope.reorderWidget({start: startIndex, end: endIndex});
-                        // var reorderedElement = scope.data.splice(startIndex, 1)[0];
-                        // scope.data.splice(endIndex, 0, reorderedElement);
-                        // scope.$apply();
+                        
 
                     }
                 });

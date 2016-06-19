@@ -1,35 +1,37 @@
 <div class="container">
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <a href="#/user/{{model.userId}}/website" class="navbar-text pull-left">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="navbar-brand">New Website</a>
-            <a ng-click="model.createWebsite(name, description)" class="navbar-text pull-right">
-                <span class="glyphicon glyphicon-ok"></span>
-            </a>
-        </div>
-    </nav>
+    <form name="newWebForm" novalidate>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <a href="#/user/{{model.userId}}/website" class="navbar-text pull-left">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="navbar-brand">New Website</a>
+                <button type="submit" ng-click="model.createWebsite(name, description)" class="navbar-text pull-right">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </button>
+            </div>
+        </nav>
 
-    <div ng-show="model.error" class="alert alert-danger alert-dismissible" role="alert">
-        <strong>{{model.error}}</strong>
-    </div>
-    <!--<div ng-show="model.name_error" class="alert alert-danger alert-dismissible" role="alert">-->
-    <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
-    <!--<span aria-hidden="true">&times;</span>-->
-    <!--</button>-->
-    <!--<strong>{{model.name_error}}</strong>-->
-    <!--</div>-->
-    <form>
+
+
+        <div ng-show="model.error" class="alert alert-danger alert-dismissible" role="alert">
+            <strong>{{model.error}}</strong>
+        </div>
+
         <div class="form-group">
             <label class="label-control" for="name_newweb">Name</label>
             <input ng-model="name"
+                   name="name"
                    type="text"
                    id="name_newweb"
                    placeholder="Input the website name here."
                    class="form-control"
-                   required="required">
-            <span class="help-block">Name should not be empty. </span>
+                   required>
+            <span class="fa fa-exclamation-triangle validate-alert"
+                  ng-show="newWebForm.$submitted && !name">
+                Website name should not be empty.
+            </span>
+
         </div>
         <div class="form-group">
             <label class="label-control" for="des_newweb">Description</label>

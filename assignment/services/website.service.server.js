@@ -17,7 +17,7 @@ module.exports = function(app, models) {
                     res.sendStatus(200);
                 },
                 function () {
-                    res.sendStatus(400);
+                    res.status(400).send("Unable to create website. ");
                 }
             );
     }
@@ -57,10 +57,10 @@ module.exports = function(app, models) {
             .updateWebsite(websiteId, website)
             .then(
                 function () {
-                    res.sendStatus(200);
+                    res.status(200).send("Website updated. ");
                 },
                 function () {
-                    res.sendStatus(400);
+                    res.status(400).send("Update failed. ");
                 }
             );
     }
@@ -75,7 +75,7 @@ module.exports = function(app, models) {
                     res.sendStatus(200);
                 },
                 function () {
-                    res.sendStatus(400);
+                    res.status(400).send("Unable to delete website. ");
                 }
             )
     }

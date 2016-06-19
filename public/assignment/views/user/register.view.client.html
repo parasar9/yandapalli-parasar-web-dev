@@ -1,39 +1,60 @@
 <div class="container">
     <h1 class="page-header">Register</h1>
-    <form>
+    <form name="registerForm" novalidate>
 
-        <div ng-show="model.error" class="alert alert-danger alert-dismissible" role="alert">
+        <div ng-show="model.error" class="alert alert-danger" role="alert">
             <strong>{{model.error}}</strong>
         </div>
 
         <div class="form-group">
             <input type="text"
+                   name="username"
                    ng-model="username"
                    class="form-control"
                    id="username_reg"
                    placeholder="username"
-                   required="required">
-            <span class="help-block">You can not change your username once you register. </span>
+                   required>
+            <span class="help-block">Please note that your username can not be changed once you register. </span>
+            <span class="fa fa-exclamation-triangle validate-alert"
+                  ng-show="registerForm.$submitted && !username">
+                Username should not be empty.
+            </span>
         </div>
         <div class="form-group">
             <input type="password"
+                   name="password"
                    ng-model="password"
                    class="form-control"
                    id="password_reg"
-                   placeholder="password"
-                   required="required">
+                   placeholder="password no less than 6 characters"
+                   required>
+            <span class="fa fa-exclamation-triangle validate-alert"
+                  ng-show="registerForm.$submitted && !password">
+                Password should not be empty.
+            </span>
         </div>
         <div class="form-group">
             <input type="password"
+                   name="veri_password"
                    ng-model="veri_password"
                    class="form-control"
                    id="verify_password_reg"
                    placeholder="verify password"
-                   required="required">
+                   required>
+            <span class="fa fa-exclamation-triangle validate-alert"
+                  ng-show="registerForm.$submitted && !veri_password">
+                Verifying Password should not be empty.
+            </span>
+            <span class="fa fa-exclamation-triangle validate-alert"
+                  ng-show="registerForm.$submitted && veri_password !== password">
+                Verifying Password and Password should match.
+            </span>
         </div>
-
+        <div class="form-group">
+            <button type="submit" ng-click="model.createNewUser(username, password, veri_password)"
+               class="btn btn-primary btn-block">Register</button>
+            <a class="btn btn-danger btn-block" href="#/login">Cancel</a>
+        </div>
     </form>
-    <a ng-click="model.createNewUser(username, password, veri_password)"
-       class="btn btn-primary btn-block">Register</a>
-    <a class="btn btn-danger btn-block" href="#/login">Cancel</a>
+
 </div>

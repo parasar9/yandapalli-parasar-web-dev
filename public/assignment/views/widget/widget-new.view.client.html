@@ -1,30 +1,31 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <a href="#/user/{{model.userId}}/website/{{model.webId}}/page/{{model.pageId}}/widget"
-           class="navbar-text pull-left">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="navbar-brand">New {{model.type}}</a>
-        <!--<a ng-click="model.createWidget()" class="navbar-text pull-right">-->
-        <!--<span class="glyphicon glyphicon-ok"></span>-->
-        <!--</a>-->
-    </div>
-</nav>
-
 <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <a href="#/user/{{model.userId}}/website/{{model.webId}}/page/{{model.pageId}}/widget"
+               class="navbar-text pull-left">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="navbar-brand">New {{model.type}}</a>
+        </div>
+    </nav>
 
-    <div ng-show="model.error" class="alert alert-danger alert-dismissible" role="alert">
+
+
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
         <strong>{{model.error}}</strong>
     </div>
 
     <div ng-switch="model.type">
 
         <div ng-switch-when="TEXT">
-            <form>
+            <form name="newWidgetForm" novalidate>
                 <div class="form-group">
                     <label class="label-control" for="text_name_newwid">Name</label>
-                    <input ng-model="name" class="form-control" id="text_name_newwid"/>
-                    <span class="help-block">Name should not be empty. </span>
+                    <input name="name" ng-model="name" class="form-control" id="text_name_newwid"/>
+                        <span class="fa fa-exclamation-triangle validate-alert"
+                              ng-show="newWidgetForm.$submitted && !name">
+                            Widget name should not be empty.
+                        </span>
                 </div>
                 <div class="form-group">
                     <label class="label-control" for="text_text_newwid">Text</label>
@@ -32,7 +33,11 @@
                 </div>
                 <div class="form-group">
                     <label class="label-control" for="text_rows_newwid">Rows</label>
-                    <input ng-model="rows" class="form-control" type="number" id="text_rows_newwid"/>
+                    <input name="rows" ng-model="rows" class="form-control" type="number" id="text_rows_newwid" min="1"/>
+                        <span class="fa fa-exclamation-triangle validate-alert"
+                              ng-show="newWidgetForm.$submitted && newWidgetForm.rows.$viewValue < 1">
+                            Number of rows should be positive.
+                        </span>
                 </div>
                 <div class="form-group">
                     <label class="label-control" for="text_placeholder_newwid">Placeholder</label>
@@ -42,18 +47,22 @@
                     <label class="label-control" for="text_formatted_newwid">Formatted</label>
                     <input ng-model="formatted" type="checkbox" id="text_formatted_newwid"/>
                 </div>
+
+                <button type="submit" ng-click="model.createWidget({name: name, text: text, rows: rows, placeholder: placeholder, formatted: formatted})"
+                        class="btn btn-primary btn-block">Create</button>
             </form>
-            <a ng-click="model.createWidget({name: name, text: text, rows: rows, placeholder: placeholder, formatted: formatted})"
-               class="btn btn-primary btn-block">Create</a>
         </div>
 
 
         <div ng-switch-when="HEADER">
-            <form>
+            <form name="newWidgetForm" novalidate>
                 <div class="form-group">
                     <label class="label-control" for="header_name_newwid">Name</label>
-                    <input ng-model="name" class="form-control" id="header_name_newwid"/>
-                    <span class="help-block">Name should not be empty. </span>
+                    <input name="name" ng-model="name" class="form-control" id="header_name_newwid"/>
+                        <span class="fa fa-exclamation-triangle validate-alert"
+                              ng-show="newWidgetForm.$submitted && !name">
+                            Widget name should not be empty.
+                        </span>
                 </div>
                 <div class="form-group">
                     <label class="label-control" for="header_text_newwid">Text</label>
@@ -66,23 +75,36 @@
                 <div class="form-group">
                     <label class="label-control" for="header_size_newwid">Size</label>
                     <input ng-model="size"
+                           name="size"
                            type="number"
                            id="header_size_newwid"
                            class="form-control"
                            min="1"
                            max="6">
-                    <span class="help-block">Size of header ranges from 1 to 6. </span>
+                    <span class="help-block">Size of header ranges from 1 to 6 inclusively. </span>
+                        <span class="fa fa-exclamation-triangle validate-alert"
+                              ng-show="newWidgetForm.$submitted && newWidgetForm.size.$viewValue < 1">
+                            Size out of range.
+                        </span>
+                        <span class="fa fa-exclamation-triangle validate-alert"
+                              ng-show="newWidgetForm.$submitted && newWidgetForm.size.$viewValue > 6">
+                            Size out of range.
+                        </span>
                 </div>
+
+                <button type="submit" ng-click="model.createWidget({name: name, text: text, size: size})" class="btn btn-primary btn-block">Create</button>
             </form>
-            <a ng-click="model.createWidget({name: name, text: text, size: size})" class="btn btn-primary btn-block">Create</a>
         </div>
 
         <div ng-switch-when="IMAGE">
-            <form action="/api/new/upload" method="post" enctype="multipart/form-data">
+            <form name="newWidgetForm" novalidate action="/api/new/upload" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="label-control" for="image_name_newwid">Name</label>
                     <input name="widgetName" ng-model="name" class="form-control" id="image_name_newwid"/>
-                    <span class="help-block">Name should not be empty. </span>
+                    <span class="fa fa-exclamation-triangle validate-alert"
+                    ng-show="newWidgetForm.$submitted && !newWidgetForm.widgetName.$viewValue">
+                    Widget name should not be empty.
+                    </span>
                 </div>
                 <div class="form-group">
                     <label class="label-control" for="image_url_newwid">URL</label>
@@ -107,12 +129,16 @@
                 </div>
                 <div class="form-group">
                     <label class="label-control" for="file_newwid">Upload</label>
-                    <input type="file" id="file_newwid" name="myFile">
+                    <input dirname="file" type="file" id="file_newwid" name="myFile">
+                    <!--<span class="fa fa-exclamation-triangle validate-alert"-->
+                    <!--ng-show="newWidgetForm.$submitted && !newWidgetForm.file">-->
+                    <!--Choose a local image.-->
+                    <!--</span>-->
                     <!--<input name="widgetId" value="{{model.widget._id}}" class="widget-hidden-info"/>-->
                     <input name="userId" value="{{model.userId}}" class="widget-hidden-info"/>
                     <input name="webId" value="{{model.webId}}" class="widget-hidden-info"/>
                     <input name="pageId" value="{{model.pageId}}" class="widget-hidden-info"/>
-                    <button class="submit btn btn-success btn-block submit-button">Upload Image</button>
+                    <button type="submit" class="submit btn btn-success btn-block submit-button">Upload Image</button>
                 </div>
             </form>
             <a ng-click="model.createWidget({name: name, url: url, width: width})" class="btn btn-primary btn-block">Create</a>
@@ -121,20 +147,29 @@
                 Search on Flickr
             </a>
         </div>
+
         <div ng-switch-when="YOUTUBE">
-            <form>
+            <form name="newWidgetForm" novalidate>
                 <div class="form-group">
                     <label class="label-control" for="youtube_name_newwid">Name</label>
-                    <input ng-model="name" class="form-control" id="youtube_name_newwid"/>
-                    <span class="help-block">Name should not be empty. </span>
+                    <input name="name" ng-model="name" class="form-control" id="youtube_name_newwid"/>
+                        <span class="fa fa-exclamation-triangle validate-alert"
+                              ng-show="newWidgetForm.$submitted && !name">
+                            Widget name should not be empty.
+                        </span>
                 </div>
                 <div class="form-group">
                     <label class="label-control" for="youtube_url_newwid">URL</label>
                     <input ng-model="url"
+                           name="url"
                            type="url"
                            id="youtube_url_newwid"
                            class="form-control"
                            placeholder="URL of the video">
+                    <span class="fa fa-exclamation-triangle validate-alert"
+                          ng-show="newWidgetForm.$submitted && !url">
+                            Url should not be empty.
+                        </span>
                 </div>
                 <div class="form-group">
                     <label class="label-control" for="youtube_width_newwid">Width</label>
@@ -145,52 +180,43 @@
                            placeholder="the width of the image including unit">
                     <span class="help-block">e.g. 500px, 80%</span>
                 </div>
+                <button type="submit" ng-click="model.createWidget({name: name, url: url, width: width})" class="btn btn-primary btn-block">Create</button>
             </form>
-            <a ng-click="model.createWidget({name: name, url: url, width: width})" class="btn btn-primary btn-block">Create</a>
         </div>
+
         <div ng-switch-when="HTML">
-            <!--<form>-->
-            <!--<div class="form-group">-->
-            <!--<label class="label-control" for="html_text_newwid">Text</label>-->
-            <!--<input ng-model="text"-->
-            <!--type="text"-->
-            <!--id="html_text_newwid"-->
-            <!--placeholder="Html code including tags"-->
-            <!--class="form-control">-->
-            <!--<span class="help-block">-->
-            <!--e.g. <pre>&lt;h1&gt;Lorem ipsum&lt;/h1&gt;</pre>-->
-            <!--<pre>&lt;p&gt;Lorem ipsum is ... &lt;/p&gt;</pre>-->
-            <!--</span>-->
-            <!--</div>-->
-            <!--</form>-->
-            <div class="form-group">
-                <label class="label-control" for="html_name_newwid">Name</label>
-                <input ng-model="name" class="form-control" id="html_name_newwid"/>
-                <span class="help-block">Name should not be empty. </span>
-            </div>
-            <div class="form-group">
-                <div ng-model="text"
-                     text-angular
-                     ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+            <form name="newWidgetForm" novalidate>
+                <div class="form-group">
+                    <label class="label-control" for="html_name_newwid">Name</label>
+                    <input name="name" ng-model="name" class="form-control" id="html_name_newwid"/>
+                    <span class="fa fa-exclamation-triangle validate-alert"
+                          ng-show="newWidgetForm.$submitted && !name">
+                            Widget name should not be empty.
+                        </span>
+                </div>
+                <div class="form-group">
+                    <div ng-model="text"
+                         text-angular
+                         ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
                      ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
                      ['indent','outdent'],['html']]">
+                    </div>
                 </div>
-            </div>
-            <a ng-click="model.createWidget({name: name, text: text})" class="btn btn-primary btn-block">Create</a>
+                <button type="submit" ng-click="model.createWidget({name: name, text: text})" class="btn btn-primary btn-block">Create</button>
+            </form>
         </div>
 
         <div ng-switch-default></div>
 
     </div>
 
-</div>
-
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="navbar-text pull-right">
-            <a href="#/user/{{model.userId}}">
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="navbar-text pull-right">
+                <a href="#/user/{{model.userId}}">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</div>

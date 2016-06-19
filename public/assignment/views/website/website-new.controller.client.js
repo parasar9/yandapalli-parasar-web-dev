@@ -16,8 +16,8 @@
                         function () {
                             $location.url("/user/" + vm.userId + "/website");
                         },
-                        function () {
-                            vm.error = "Unable to create website.";
+                        function (err) {
+                            vm.error = err.data;
                         });
 
             } else {

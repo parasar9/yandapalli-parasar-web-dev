@@ -27,8 +27,8 @@
                     function () {
                         init();
                     },
-                    function () {
-                        vm.error = "Reordering failed. ";
+                    function (err) {
+                        vm.error = err.data;
                     }
                 );
             // console.log([start, end]);

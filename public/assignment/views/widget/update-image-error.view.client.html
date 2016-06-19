@@ -1,0 +1,29 @@
+<div class="container">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <a href="#/user/{{model.userId}}/website/{{model.webId}}/page/{{model.pageId}}/widget/{{model.widgetId}}"
+               class="navbar-text pull-left">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="navbar-brand">Image Error</a>
+        </div>
+    </nav>
+
+    <h2 class="validate-alert">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        Please make sure you choose a local image and the name is not empty.
+    </h2>
+    <a href="#/user/{{model.userId}}/website/{{model.webId}}/page/{{model.pageId}}/widget/{{model.widgetId}}" class="btn btn-primary btn-block">Back</a>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="navbar-text pull-right">
+                <a href="#/user/{{model.userId}}">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+</div>

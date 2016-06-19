@@ -9,17 +9,14 @@
             if (username && password && veri_password) {
                 if (password === veri_password) {
                     UserService
-                        .createUser(username, password)
+                        .register(username, password)
                         .then(
                             function (response) {
                                 var result = response.data;
-                                if (result && result._id) {
-                                    $location.url("/user/" + result._id);
-                                } else {
-                                    if (result && result.errors) {
-                                        vm.error = "Username already exists. ";
-                                    }
-                                }
+                                $location.url("/user/" + result._id);
+                            },
+                            function (err) {
+                                vm.error = err.data;
                             });
                     }
                     else {

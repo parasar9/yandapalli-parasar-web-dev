@@ -7,7 +7,11 @@
 
         var api = {
             createUser : createUser,
+            login : login,
+            logout : logout,
             findUserById : findUserById,
+            loggedIn : loggedIn,
+            register : register,
             findUserByUsername : findUserByUsername,
             findUserByCredentials : findUserByCredentials,
             updateUser : updateUser,
@@ -16,7 +20,7 @@
 
         return api;
 
-        // adds the user parameter instance to the local users array
+        
         function createUser(username, password) {
             var newUser = {
                 username: username,
@@ -26,35 +30,63 @@
             return $http.post("/api/user", newUser);
         }
 
-        // returns the user in local users array whose _id matches the userId parameter
+        function login(username, password) {
+            var newUser = {
+                username: username,
+                password: password
+            };
+
+            return $http.post("/api/login", newUser);
+        }
+
+        function logout() {
+            var url = "/api/logout";
+            return $http.post(url);
+        }
+
+
+         
         function findUserById(id) {
             var url = "/api/user/" + id;
             return $http.get(url);
 
         }
 
-        // returns the user in local users array whose username matches the parameter username
+        function loggedIn() {
+            return $http.get("/api/loggedIn");
+        }
+
+        function register(username, password) {
+            var newUser = {
+                username: username,
+                password: password
+            };
+
+            return $http.post("/api/register", newUser);
+        }
+
+         
         function findUserByUsername(username) {
             var url = "/api/user?username=" + username;
             return $http.get(url);
         }
 
-        // returns the user whose username and password match the username and password parameters
+        
         function findUserByCredentials(username, password) {
             var url = "/api/user?username="+username+"&password="+password;
             return $http.get(url);
         }
 
-        // updates the user in local users array whose _id matches the userId parameter
+         
         function updateUser(userId, newUser) {
             var url = "/api/user/" + userId;
             return $http.put(url, newUser);
         }
 
-        // removes the user whose _id matches the userId parameter
+       
         function unregister(userId) {
             var url = "/api/user/" + userId;
-            // console.log(url);
+           
             return $http.delete(url);
         }
     }

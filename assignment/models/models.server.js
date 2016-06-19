@@ -1,11 +1,11 @@
 module.exports = function () {
 
-      // // for localhost
     // var mongoose = require("mongoose");
+    // // for localhost
     // mongoose.connect('mongodb://localhost/CS5610summer1');
-
-    // var mongoose = require("mongoose");
-    // var connectionString = 'mongodb://127.0.0.1:27017/test';
+    //
+    // // this works for remote, activate before push to remote
+    // // var connectionString = 'mongodb://127.0.0.1:27017/test';
     //
     // if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
     //     connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +

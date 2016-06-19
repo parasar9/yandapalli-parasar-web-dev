@@ -43,8 +43,8 @@
                         function () {
                             $location.url("/user/" + vm.userId + "/website/" + vm.webId + "/page/" + vm.pageId + "/widget/" + vm.widgetId);
                         },
-                        function () {
-                            vm.error = "Unable to select the photo. ";
+                        function (err) {
+                            vm.error = err.data;
                         });
             } else {
                 vm.error = "URL should not be empty. ";

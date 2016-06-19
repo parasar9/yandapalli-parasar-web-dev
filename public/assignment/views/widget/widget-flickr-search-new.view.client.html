@@ -18,18 +18,17 @@
         </span>
     </div>
 
-    <div ng-show="model.error" class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <strong>{{model.error}}</strong>
-    </div>
-
-    <form>
+    <form name="flickrForm" novalidate>
+        <div ng-show="model.error" class="alert alert-danger alert-dismissible" role="alert">
+            <strong>{{model.error}}</strong>
+        </div>
         <div class="form-group">
             <label class="label-control" for="name_flickr">Name</label>
-            <input ng-model="name" class="form-control" id="name_flickr"/>
-            <span class="help-block">Name should not be empty. </span>
+            <input name="name" ng-model="name" class="form-control" id="name_flickr"/>
+            <span class="fa fa-exclamation-triangle validate-alert"
+                  ng-show="flickrForm.$submitted && !flickrForm.name.$viewValue">
+                            Widget name should not be empty.
+            </span>
         </div>
         <div class="form-group">
             <label class="label-control" for="url_flickr">URL</label>
@@ -39,9 +38,12 @@
                    class="form-control"
                    placeholder="URL of the image">
         </div>
+        <div class="form-group">
+            <button type="submit" ng-click="model.selectPhoto(name)" class="btn btn-primary btn-block">Select</button>
+        </div>
     </form>
 
-    <a ng-click="model.selectPhoto(name)" class="btn btn-primary btn-block">Select</a>
+
 
 
 

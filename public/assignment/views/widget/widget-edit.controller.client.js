@@ -21,19 +21,65 @@
 
         vm.updateWidget = function updateWidget(wid) {
             if (wid.name) {
-                WidgetService
-                    .updateWidget(vm.widgetId, wid)
-                    .then(
-                        function () {
-                            vm.success = "Widget updated. ";
-                        },
-                        function () {
-                            vm.error = "Update failed. ";
-                        });
-            } else {
+                if (wid.widgetType === "HEADER") {
+                    if (wid.size >= 1 && wid.size <= 6) {
+                        WidgetService
+                            .updateWidget(vm.widgetId, wid)
+                            .then(
+                                function (response) {
+                                    vm.success = response.data;
+                                },
+                                function (err) {
+                                    vm.error = err.data;
+                                });
+                    } else {
+                        vm.error = "Size out of range. ";
+                    }
+                } else if (wid.widgetType === "TEXT") {
+                    if (wid.rows > 0) {
+                        WidgetService
+                            .updateWidget(vm.widgetId, wid)
+                            .then(
+                                function (response) {
+                                    vm.success = response.data;
+                                },
+                                function (err) {
+                                    vm.error = err.data;
+                                });
+                    } else {
+                        vm.error = "Number of rows should be positive. ";
+                    }
+                } else if (wid.widgetType === "YOUTUBE") {
+                    if (wid.url) {
+                        WidgetService
+                            .updateWidget(vm.widgetId, wid)
+                            .then(
+                                function (response) {
+                                    vm.success = response.data;
+                                },
+                                function (err) {
+                                    vm.error = err.data;
+                                });
+                    } else {
+                        vm.error = "Url should not be empty. ";
+                    }
+
+                } else {
+                    WidgetService
+                        .updateWidget(vm.widgetId, wid)
+                        .then(
+                            function (response) {
+                                vm.success = response.data;
+                            },
+                            function (err) {
+                                vm.error = err.data;
+                            });
+                }
+
+            }
+            else {
                 vm.error = "Widget name should not be empty. ";
             }
-
         };
 
         vm.deleteWidget = function deleteWidget() {
@@ -43,8 +89,8 @@
                     function () {
                         $location.url("/user/" + vm.userId + "/website/" + vm.webId + "/page/" + vm.pageId + "/widget");
                     },
-                    function () {
-                        vm.error = "Unable to delete the page. ";
+                    function (err) {
+                        vm.error = err.data;
                     });
         };
 

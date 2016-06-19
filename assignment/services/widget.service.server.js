@@ -24,7 +24,7 @@ module.exports = function(app, models) {
                     res.sendStatus(200);
                 },
                 function () {
-                    res.sendStatus(400);
+                    res.status(400).send("Reordering failed. ");
                 }
             );
     }
@@ -34,8 +34,9 @@ module.exports = function(app, models) {
         var userId = req.body.userId;
         var websiteId = req.body.webId;
         var pageId = req.body.pageId;
-        var myFile = req.file;
-        if (myFile && widgetName) {
+
+        if (req.hasOwnProperty('file') && widgetName) {
+            var myFile = req.file;
             var width = req.body.width;
             var originalname = myFile.originalname; // file name on user's computer
             var filename = myFile.filename; // new file name in upload folder
@@ -50,20 +51,22 @@ module.exports = function(app, models) {
                 name: widgetName,
                 url: "/uploads/" + filename,
                 width: "100%"
-            }
+            };
 
             widgetModel
                 .createWidget("IMAGE", newPic, pageId)
                 .then(
                     function () {
-                        res.redirect("/assignment/#/user/"+ userId + "/website/" + websiteId + "/page/" +pageId + "/widget");
+                        res.redirect("/assignment/#/user/"+ userId + "/website/" + websiteId + "/page/" + pageId + "/widget");
                     },
                     function () {
-                        res.redirect("/assignment/#/user/"+ userId + "/website/" + websiteId + "/page/" +pageId + "/widget/new/IMAGE");
+                        //res.status(400).send("Upload failed. ");
+                        res.redirect("/assignment/#/user/"+ userId + "/website/" + websiteId + "/page/" + pageId + "/IMAGE_ERROR");
                     }
-                )
+                );
         } else {
-            res.redirect("/assignment/#/user/"+ userId + "/website/" + websiteId + "/page/" +pageId + "/widget/new/IMAGE");
+            //res.status(400).send("Please choose a local image and input the name. ");
+            res.redirect("/assignment/#/user/"+ userId + "/website/" + websiteId + "/page/" + pageId + "/IMAGE_ERROR");
         }
     }
 
@@ -75,8 +78,9 @@ module.exports = function(app, models) {
         var websiteId = req.body.webId;
         var pageId = req.body.pageId;
         var widgetName = req.body.widgetName;
-        var myFile = req.file;
-        if (myFile && widgetName) {
+
+        if (req.hasOwnProperty('file') && widgetName) {
+            var myFile = req.file;
             var width = req.body.width;
             var originalname = myFile.originalname; // file name on user's computer
             var filename = myFile.filename; // new file name in upload folder
@@ -100,11 +104,11 @@ module.exports = function(app, models) {
                         res.redirect("/assignment/#/user/"+ userId + "/website/" + websiteId + "/page/" +pageId + "/widget");
                     },
                     function () {
-                        res.redirect("/assignment/#/user/"+ userId + "/website/" + websiteId + "/page/" +pageId + "/widget/" + widgetId);
+                        res.redirect("/assignment/#/user/"+ userId + "/website/" + websiteId + "/page/" +pageId + "/widget/" + widgetId + "/UPDATE_IMAGE_ERROR");
                     }
                 )
         } else {
-            res.redirect("/assignment/#/user/"+ userId + "/website/" + websiteId + "/page/" +pageId + "/widget/" + widgetId);
+            res.redirect("/assignment/#/user/"+ userId + "/website/" + websiteId + "/page/" +pageId + "/widget/" + widgetId + "/UPDATE_IMAGE_ERROR");
         }
     }
 
@@ -119,7 +123,7 @@ module.exports = function(app, models) {
                     res.sendStatus(200);
                 },
                 function () {
-                    res.sendStatus(400);
+                    res.status(400).send("Unable to create widget. ");
                 }
             );
     }
@@ -159,10 +163,10 @@ module.exports = function(app, models) {
             .updateWidget(widgetId, widget)
             .then(
                 function () {
-                    res.sendStatus(200);
+                    res.status(200).send("Widget updated. ");
                 },
                 function () {
-                    res.sendStatus(404);
+                    res.status(404).send("Update failed. ");
                 }
             );
     }
@@ -176,7 +180,7 @@ module.exports = function(app, models) {
                     res.sendStatus(200);
                 },
                 function () {
-                    res.sendStatus(404);
+                    res.status(404).send("Unable to delete the widget. ");
                 }
             );
     }

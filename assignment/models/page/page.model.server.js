@@ -30,8 +30,7 @@ module.exports = function () {
     }
 
     function updatePage(pageId, newPage) {
-        // delete user._id;
-        return page.update({_id: pageId},{
+                return page.update({_id: pageId},{
             $set: {
                 name: newPage.name,
                 title: newPage.title

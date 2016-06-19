@@ -57,10 +57,10 @@ module.exports = function(app, models) {
             .updatePage(pageId, page)
             .then(
                 function () {
-                    res.sendStatus(200);
+                    res.status(200).send("Page updated. ");
                 },
                 function () {
-                    res.sendStatus(404);
+                    res.status(404).send("Update failed. ");
                 }
             );
 
@@ -75,7 +75,7 @@ module.exports = function(app, models) {
                     res.sendStatus(200);
                 },
                 function () {
-                    res.sendStatus(404);
+                    res.status(404).send("Unable to delete the page. ");
                 }
             );
     }

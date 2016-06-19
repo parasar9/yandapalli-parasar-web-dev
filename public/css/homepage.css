@@ -37,7 +37,6 @@ h6 {
     padding-bottom: 50px;
     text-align: center;
     color: #222222;
-    background: url(../images/6894652-simple-wallpaper.jpg) no-repeat center center;
     height: 500px;
 }
 
@@ -123,7 +122,6 @@ h6 {
 .banner {
     padding: 100px 0;
     /*color: #f8f8f8;*/
-    background: url(../images/contact.jpg) no-repeat center center;
     background-size: cover;
 }
 

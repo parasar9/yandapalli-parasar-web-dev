@@ -26,8 +26,8 @@
                     function () {
                         $location.url("/user/" + userId + "/website");
                     },
-                    function () {
-                        vm.error = "Unable to delete website.";
+                    function (err) {
+                        vm.error = err.data;
                     });
 
         }
@@ -37,11 +37,11 @@
                 WebsiteService
                     .updateWebsite(newWeb)
                     .then(
-                        function () {
-                            vm.success = "Website updated. ";
+                        function (response) {
+                            vm.success = response.data;
                         },
-                        function () {
-                            vm.error = "Update failed. ";
+                        function (err) {
+                            vm.error = err.data;
                         });
             } else {
                 vm.error = "Website name should not be empty. ";

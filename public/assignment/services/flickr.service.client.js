@@ -3,8 +3,8 @@
         .module("WebAppMaker")
         .factory("FlickrService", FlickrService);
 
-    var key = "18bf2637fac04f4e03c6b5b3b4dd1f10";
-    var secret = "55e58dcca7cb3a73";
+    var key = "18e7da648590869e624d961f1867cd1e";
+    var secret = "c56a9856c5f9d46e";
     var urlBase = "https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=API_KEY&text=TEXT";
 
     function FlickrService($http) {
