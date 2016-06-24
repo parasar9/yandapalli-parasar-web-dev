@@ -1,0 +1,111 @@
+<div id="page-wrapper" ng-model="user">
+
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="page-header">
+				Profile
+				<div class="pull-right">
+					<a type="submit" data-toggle="tooltip" title="edit this User" ng-click="editUser()">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</a>
+					<a type="submit" title="delete this User" ng-click="removeUser()">
+						<span class="glyphicon glyphicon-remove"></span>
+					</a>
+				</div>
+			</h1>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<div class="col-lg-10">
+			<ul class="nav nav-tabs">
+				<li role="presentation"class="active"><a>Buyer</a></li>
+				<li role="presentation"><a href="#/seller">Seller</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-3 col-lg-3 " align="center">
+			<img alt="User Pic" src="{{user.image}}" class="img-circle img-responsive">
+		</div>
+
+		<div class="col-md-9 col-lg-9">
+			<table class="table table-user-information">
+				<tbody>
+					<tr>
+						<td>username</td>
+						<td>{{user.username}}</td>
+					</tr>
+					<tr>
+						<td>name</td>
+						<td>{{user.lastname}},{{user.firstname}}</td>
+					</tr>
+					<tr>
+						<td>Date of Birth</td>
+						<td>{{user.age.split("T")[0]}}</td>
+					</tr>
+					<tr>
+						<td>Gender</td>
+						<td>{{user.gender}}</td>
+					</tr>
+					<tr>
+						<td>Home Address</td>
+						<td>{{user.address}}</td>
+					</tr>
+					<tr>
+						<td>Email</td>
+						<td><a href="">{{user.email}}</a></td>
+					</tr>
+					<tr>
+						<td>Phone Number</td>
+						<td>{{user.phone}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<div class="col-lg-10">
+			<ul class="nav nav-tabs">
+				<li role="presentation" ng-class="active(true)"><a ng-click="flag = true"> Comments </a></li>
+				<li role="presentation" ng-class="active(false)"><a ng-click="flag = false"> Followed </a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div ng-if="flag" ng-repeat="comment in comments">
+		<div class="media">
+			<a class="pull-left" href="#">
+				<img class="media-object icon" src="{{comment.bookImage}}" alt="">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading">{{comment.username}}
+					<small>{{comment.date}}</small>&nbsp &nbsp &nbsp
+					<small> <a ng-click="enterBook(comment.bookId)">enter</a> </small>
+				</h4>
+				{{comment.comment}}
+			</div>
+		</div>
+		<br/>
+	</div>
+
+	<div ng-if="!flag">
+		<div class="row">
+			<div class="col-sm-4" ng-repeat="follow in followed">
+				<div class="row">
+					<img class="media-object img-circle big-icon" src="{{follow.sellerImage}}" alt="">
+				</div>
+				<div class="row">
+					<h4>{{follow.sellerName}}</h4>
+				</div>
+				<div class="row">
+					<a ng-click="deleteFollow(follow.userId, follow._id)">remove</a>  |
+					<a ng-click="enterSeller(follow.sellerId)">enter</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

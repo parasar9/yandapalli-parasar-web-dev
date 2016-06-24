@@ -1,0 +1,49 @@
+<div id="page-wrapper">
+
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="page-header">
+				Orders
+			</h1>
+		</div>
+	</div>
+
+	<div class="row">
+		<table class="table table-stripped" align="center">
+			<thead>
+				<tr>
+					<th width="10%"></th>
+					<th width="75%"></th>
+					<th width="15%"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="record in history">
+					<td> <img class="big-icon img-square img-responsive" src="{{record.image}}"> </td>
+					<td>
+						<b>
+							<ul>
+								<li class="title"><a ng-click="enterBook(record.bookId)">{{record.title}}</a></li>
+								<li class="details">quantity: {{record.quantity}}</li>
+								<li class="details">shipment: {{record.date.split("T")[0]}}</li>
+								<br/>
+								<li class="price"> Price: {{record.price}}</li>
+							</ul>
+						</b>
+					</td>
+					<td>
+						<div class="ratings">
+							<p>
+								<span class="glyphicon star" ng-class="rate(record.rating, 1)"></span>
+								<span class="glyphicon glyphicon-star star" ng-class="rate(record.rating, 2)"></span>
+								<span class="glyphicon glyphicon-star star" ng-class="rate(record.rating, 3)"></span>
+								<span class="glyphicon glyphicon-star star" ng-class="rate(record.rating, 4)"></span>
+								<span class="glyphicon glyphicon-star-empty star" ng-class="rate(record.rating, 5)"></span>
+							</p>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<div class="ngdialog-message">
+    <h2>Edit Comment</h2>
+    <form>
+        <div class="form-group">
+            <label for="dialogLabel">new Comment:</label>
+            <textarea class="form-control" rows = "4" id="dialogLabel" ng-model="comment.comment" placeholder="Label"> </textarea>
+        </div>
+    </form>
+</div>
+<hr>
+<div class="ngdialog-buttons mt">
+    <button type="button" class="ngdialog-button ngdialog-button-danger" ng-click="closeThisDialog()"> back </button>
+    <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="submit(comment)"> Submit </button>
+</div>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<div class="ngdialog-message">
+    <h2>Book Properties</h2>
+    <form>
+        <div class="form-group" ng-init="book.asin= getAsin(); book.rating=getRating()">
+            <label for="title">title:</label>
+            <input class="form-control" type="text" id="title" ng-model="book.title" placeholder="title"> </input>
+        </div>
+        <div class="form-group">
+            <label for="author">author:</label>
+            <input class="form-control" type="text" id="author" ng-model="book.author" placeholder="author"> </input>
+        </div>
+        <div class="form-group">
+            <label for="publisher">publisher:</label>
+            <input class="form-control" type="text" id="publisher" ng-model="book.publisher" placeholder="publisher"> </input>
+        </div>
+        <div class="form-group">
+            <label for="dialogLabel">price:</label>
+            <input class="form-control" type="number" id="dialogLabel" ng-model="price" placeholder="price"> </input>
+        </div>
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" accept="image/*" class="form-control" ng-model="book.image" id="image"
+                   onchange="angular.element(this).scope().imageChanged(this)">
+        </div>
+        <div id="display">
+
+        </div>
+    </form>
+</div>
+<hr>
+<div class="ngdialog-buttons mt">
+    <button type="button" class="ngdialog-button ngdialog-button-danger" ng-click="closeThisDialog()"> back </button>
+    <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="submit(book, price)"> Submit </button>
+</div>

@@ -1,0 +1,48 @@
+ul {
+	list-style-type: none;
+	float: left;
+}
+
+.left{
+	text-align: left;
+}
+
+.glyphicon {
+	font-size: 25px;
+}
+.star{
+	font-size: 10px;
+}
+.icon{
+	width: 42px;
+	height:42px;
+}
+.big-icon{
+	width: 100px;
+	height:100px;
+}
+
+.title{
+	font-size: 20px;
+}
+
+.shelf-title{
+	font-size: 26px;
+}
+
+.details{
+	font-size: 10px;
+}
+
+.price{
+	font-size: 14px;
+	color: red;
+}
+
+.price2{
+	font-size: 18px;
+	color: red;
+}
+
+
+

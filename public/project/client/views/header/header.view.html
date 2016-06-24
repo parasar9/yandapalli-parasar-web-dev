@@ -1,0 +1,34 @@
+<!--Navigation Bar-->
+<div ng-controller="HeaderController">
+    <nav style="background: white" class="navbar navbar-default navbar-fixed-top" id="my-navbar" >
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="" class="navbar-brand" >The Book Store</a>
+            </div>
+            <div class="collapse navbar-collapse btn-toolbar" id="navbar-collapse">
+                <a href="#logout" ng-click="logout()" class="btn navbar-btn navbar-right">Logout</a>
+                <a href="#login" class="btn btn navbar-btn navbar-right">Login </a>
+
+                <ul class="nav navbar-nav">
+                    <!--<li>  <a href="https://docs.google.com/a/husky.neu.edu/document/d/115jRFbpvt8lIjvWpPYv7zbJ6BiD58suTfLMGwrXH4AU/edit?usp=sharing"> User Guide </a>-->
+                    <!--</li>-->
+                    <li> <a href="#home"><font color="#07575B">Home</font> </a></li>
+                    <li> <a href="#search"><font color="#07575B">Search</font></a></li>
+                    <li> <a href="#profile"><font color="#07575B">Profile</font></a></li>
+                    <li> <a href="#shoppingcart"><font color="#07575B">Shopping Cart</font></a></li>
+                    <li> <a href="#shoppingrecord"><font color="#07575B">Orders</font></a></li>
+                    <li> <a href="#secondhand"><font color="red">Pre-Owned</font></a></li>
+
+                </ul>
+            </div>
+
+        </div><!--End Container-->
+    </nav> <!--End navbar-->
+</div>
+

@@ -1,0 +1,88 @@
+<div id="page-wrapper">
+
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="page-header">
+				Book Profile
+			</h1>
+		</div>
+	</div>
+
+	<div class="row" ng-model="book">
+		<div class="col-md-3 col-lg-3 " align="center">
+			<img alt="Book Pic" src="{{book.image}}" class="img-square img-responsive ">
+		</div>
+
+		<div class="col-md-9 col-lg-9">
+			<table class="table table-user-information">
+				<tbody>
+				<tr>
+					<td>BookId</td>
+					<td>{{book.asin}}</a></td>
+				</tr>
+				<tr>
+					<td>Title</td>
+					<td>{{book.title}}</td>
+				</tr>
+				<tr>
+					<td>Author</td>
+					<td>{{book.author}}</td>
+				</tr>
+				<tr>
+					<td>Publisher</td>
+					<td>{{book.publisher}}</td>
+				</tr>
+				<tr>
+					<td>Price</td>
+					<td>{{book.price}}</td>
+				</tr>
+				<tr>
+					<td>Seller</td>
+					<div ng-if="book.sellerId != undefined">
+						<td>
+							<a ng-click="enterSeller(book.sellerId)">{{book.sellerName}}</a>
+						</td>
+					</div>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<br/>
+	<br/>
+	<hr>
+
+	<!-- Comments Form -->
+	<div>
+		<h4>Leave a Comment:</h4>
+		<form role="form">
+			<div class="form-group">
+				<textarea class="form-control" rows="3" ng-model="content"></textarea>
+			</div>
+			<button type="submit" class="btn btn-primary" ng-click="addComment(content)">Submit</button>
+		</form>
+	</div>
+
+	<hr>
+	<!-- Posted Comments -->
+
+	<!-- Comment -->
+	<div ng-repeat="comment in comments">
+		<div class="media">
+			<a class="pull-left" href="#">
+				<img class="media-object icon" src="{{comment.userImage}}" alt="">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading">{{comment.username}}
+					<small>{{comment.date}}</small>&nbsp &nbsp &nbsp
+					<small ng-if="user._id == comment.userId"> <a ng-click="removeComment(comment.bookId, comment._id)">remove</a> </small>
+					<small ng-if="user._id == comment.userId"> <a ng-click="editComment(comment)">edit</a> </small>
+
+				</h4>
+				{{comment.comment}}
+			</div>
+		`</div>
+	</div>
+
+</div>
