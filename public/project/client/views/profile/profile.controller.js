@@ -16,12 +16,16 @@ function ProfileController ($scope, $rootScope, $cookies, $location, UserService
     $scope.enterSeller = EnterSeller;
     $scope.active = Active;
 
+
+
     function Active(bool){
         if($scope.flag == bool)
             return "active";
         else
             return "";
     }
+
+    
     function RenderComments(){
         CommentService.findCommentsByUserId($scope.user._id).then(function(comments){
             $scope.comments = comments;

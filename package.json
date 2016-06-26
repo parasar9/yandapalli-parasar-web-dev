@@ -40,8 +40,5 @@
   "scripts": {
     "start": "node server.js"
   },
-  "bugs": {
-    "url": "https://github.com/openshift/origin-server/issues"
-  },
-  "license": "ISC"
+    "license": "ISC"
 }
