@@ -8,7 +8,7 @@
             searchBooks: SearchBooks,
             createBook: CreateBook,
             findBookById: FindBookById,
-            removeBook: RemoveBook,
+            removeBook: Removebk,
             updateBook: UpdateBook,
             getSellerBooks: GetSellerBooks,
             findBooksBySellerId: FindBooksBySellerId
@@ -33,7 +33,7 @@
             return deferred.promise;
         }
 
-        function RemoveBook(sellerId, id){
+        function Removebk(sellerId, id){
             var deferred = $q.defer();
             $http.delete("/api/project/book/" + id + "/seller/" + sellerId)
                 .success(function(books){

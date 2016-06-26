@@ -2,10 +2,10 @@
 	<div class="row">
 		<div class="col-sm-12">
 
-			<h1 class="page-header"> Login </h1>
+			<h1 style="color: darkslategrey" class="page-header"> Login </h1>
 		</div>
 	</div>
-	<div style="background: gainsboro" class="row">
+	<div  class="row">
 		<!-- /.col-lg-12 -->
 		<div class="col-sm-8">
 			<form class="form-horizontal">
@@ -22,12 +22,19 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-sm-offset-10 col-sm-2">
-						<button class="btn btn-default btn-block"  ng-click="login()">Submit</button>
+					<div >
+						<button class="btn btn-primary btn-block"  ng-click="login()">Submit</button>
+
 					</div>
+
 				</div>
-				<div class="form-group pull-right">
-						<a ng-click="reg()">sign up</a>
+				<div class="form-group">
+				<a href="/auth/google" class="btn btn-danger btn-block">Login Using GooglePlus
+					<span class="fa fa-google-plus"></span></a>
+					</div>
+				<div class="form-group">
+                    <h5> <marquee loop="2" > Sign up to open a new account</marquee></h5>
+					<a class="btn btn-success btn-block" ng-click="reg()">sign up</a>
 				</div>
 			</form>
 		</div>

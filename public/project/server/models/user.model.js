@@ -5,9 +5,11 @@ module.exports = function(app, mongoose, db) {
 
     var UserSchema = require("../schema/user.schema.js")(app, mongoose, db);
     var UserModel = mongoose.model("PUserModel", UserSchema);
+    // var uM = require("./services/user.server.js")();
 
     var api = {
         findById: FindById,
+        Create:Create,
         update: Update,
         delete: Delete,
         findByUsername: FindByUsername,
@@ -20,10 +22,15 @@ module.exports = function(app, mongoose, db) {
         updateRecord: UpdateRecord,
 
         goCheck: GoCheck,
-        findAllHistoryByUserId: FindAllHistoryByUserId
+        findAllHistoryByUserId: FindAllHistoryByUserId,
+        findUserByGoogleId: findUserByGoogleId
 
     }
     return api;
+
+    function findUserByGoogleId(id) {
+        return UserModel.findOne({"google.id": id});
+    }
 
     function  FindAllHistoryByUserId(userId){
         var deferred = q.defer();

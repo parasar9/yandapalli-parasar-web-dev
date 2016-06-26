@@ -25,49 +25,49 @@
 	<div id="row" ng-show="searched">
 		<table class="table table-stripped" align="center">
 			<thead>
-				<tr>
-					<th width="10%"></th>
-					<th width="75%"></th>
-					<th width="15%"></th>
-				</tr>
+			<tr>
+				<th width="30%"></th>
+				<th width="50%"></th>
+				<th width="15%"></th>
+			</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="item in items" ng-init= "item.rating = generateRating()">
+			<tr ng-repeat="item in items" ng-init= "item.rating = generateRating()">
 
-					<td> <img class="big-icon img-square img-responsive" src="{{item.MediumImage['URL']}}"> </td>
-					<td ng-init="desc = item.ItemAttributes;" >
-						<b>
-							<ul>
-								<li class="title"><a ng-click="enterBook(item)">{{desc['Title']}}</a></li>
-								<li class="details">by: {{desc['Author']}}</li>
-								<li class="details">Publisher: {{desc['Manufacturer']}}</li>
-								<br/>
-								<li class="price" ng-init="price = desc['ListPrice']"> Price: {{price['FormattedPrice']}}</li>
-							</ul>
-						</b>
-					</td>
-					<td>
-						<div class="text-center">
-							<ul>
-								<li>
-									<div class="ratings">
-										<p>
-											<span  ng-class="rate(item.rating, 1)"></span>
-											<span ng-class="rate(item.rating, 2)"></span>
-											<span ng-class="rate(item.rating, 3)"></span>
-											<span  ng-class="rate(item.rating, 4)"></span>
-											<span ng-class="rate(item.rating, 5)"></span>
-										</p>
-									</div>
-								</li>
-								<li>
-									<input type="button" class="btn btn-default btn-block" ng-click="buyBook(item)" value="put in cart"/>
-								</li>
-							</ul>
+				<td> <img class="big-icon img-square img-responsive" src="{{item.MediumImage['URL']}}"> </td>
+				<td ng-init="desc = item.ItemAttributes;" >
+					<b>
+						<ul>
+							<li class="title"><a ng-click="enterBook(item)">{{desc['Title']}}</a></li>
+							<li class="details">by: {{desc['Author']}}</li>
+							<li class="details">Publisher: {{desc['Manufacturer']}}</li>
+							<br/>
+							<li class="price" ng-init="price = desc['ListPrice']"> Price: {{price['FormattedPrice']}}</li>
+						</ul>
+					</b>
+				</td>
+				<td>
+					<div class="text-center">
+						<ul>
+							<li>
+								<div class="ratings">
+									<p>
+										<span  ng-class="rate(item.rating, 1)"></span>
+										<span ng-class="rate(item.rating, 2)"></span>
+										<span ng-class="rate(item.rating, 3)"></span>
+										<span  ng-class="rate(item.rating, 4)"></span>
+										<span ng-class="rate(item.rating, 5)"></span>
+									</p>
+								</div>
+							</li>
+							<li>
+								<input type="button" class="btn btn-default btn-block" ng-click="buyBook(item)" value="Buy Now"/>
+							</li>
+						</ul>
 
-						</div>
-					</td>
-				</tr>
+					</div>
+				</td>
+			</tr>
 			</tbody>
 		</table>
 	</div>

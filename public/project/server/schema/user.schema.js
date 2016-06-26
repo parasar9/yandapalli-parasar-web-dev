@@ -1,4 +1,6 @@
- 
+/**
+ * Created by Tianjie Dong on 2015/11/23.
+ */
 
 module.exports = function(app, mongoose, db) {
 
@@ -13,6 +15,11 @@ module.exports = function(app, mongoose, db) {
         age: Date,
         gender: {type: String, enum: [null, 'male', 'female']},
         phone: Number,
+        google: {
+            id:    String,
+            token: String
+
+        },
         image: String,
         email: String,
         address: String,
