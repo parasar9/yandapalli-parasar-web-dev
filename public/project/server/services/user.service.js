@@ -5,9 +5,9 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 
 var googleConfig = {
-    clientID : "442566998997-5cnukv00aq0ju1kei3ur7qn8uogfc8uo.apps.googleusercontent.com" ,
-    clientSecret : "-q913VHxOgJAJQLPiHEGiOjo",
-    callbackURL : "http://127.0.0.1:3000/auth/google/callback"
+    clientID : process.env.clientID ,
+    clientSecret : process.env.clientSecret,
+    callbackURL : process.env.callbackURL
 }
 module.exports = function(app, model, bookModel, commentModel, FollowModel, auth){
 
